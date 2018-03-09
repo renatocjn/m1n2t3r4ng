@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require popper
 //= require_tree .
+//= require_tree ../../../vendor/assets/javascripts/bootstrap
+

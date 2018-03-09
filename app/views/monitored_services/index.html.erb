@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Monitored Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service type</th>
+      <th>Host</th>
+      <th>Port</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @monitored_services.each do |monitored_service| %>
+      <tr>
+        <td><%= monitored_service.service_type %></td>
+        <td><%= monitored_service.host %></td>
+        <td><%= monitored_service.port %></td>
+        <td><%= monitored_service.description %></td>
+        <td><%= link_to 'Show', monitored_service %></td>
+        <td><%= link_to 'Edit', edit_monitored_service_path(monitored_service) %></td>
+        <td><%= link_to 'Destroy', monitored_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Monitored service', new_monitored_service_path %>

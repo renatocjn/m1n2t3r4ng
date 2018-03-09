@@ -1,0 +1,29 @@
+
+.contents {
+    min-height: 800px;
+}
+
+footer {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.login-card {
+    min-width: 18rem;
+    max-width: 30rem;
+}
+
+.alert {
+    min-width: 50rem;
+}
+
+.delete_service_btn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}

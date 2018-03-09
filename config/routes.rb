@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  root "dashboard#services_panel"
+  
+  resources :monitored_services
+  resources :users, only: [:show, :edit, :update]
+  #get '/services_panel' => "dashboard#services_panel"
+  
+  get '/signin' => 'users#login'
+  post '/signin' => 'users#create_session'
+  
+  get '/login' => 'users#login'
+  post '/login' => 'users#create_session'
+  
+  get '/signoff' => 'users#logoff'
+  get '/logoff' => 'users#logoff'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,23 @@
+
+<%= simple_form_for(@monitored_service) do |f| %>
+  <%= f.error_notification %>
+  
+  <% if f.object.errors[:base].any? %>
+    <div class="alert alert-warning">
+      <% f.object.errors[:base].each do |m| %>
+        <%= m %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <div class="form-inputs">
+    <%= f.input :service_type, as: :select, collection: MonitoredService.service_types.keys %>
+    <%= f.input :host %>
+    <%= f.input :port %>
+    <%= f.input :description %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-block btn-primary" %>
+  </div>
+<% end %>

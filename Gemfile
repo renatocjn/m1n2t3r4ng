@@ -45,3 +45,27 @@ group :development do
   gem 'spring'
 end
 
+
+# Added at 2018-03-08 17:08:04 +0000 by ubuntu:
+gem "net-ping", "~> 2.0"
+
+# Added at 2018-03-08 17:22:53 +0000 by ubuntu:
+gem "bcrypt", "~> 3.1"
+
+# Added at 2018-03-08 17:50:59 +0000 by ubuntu:
+gem "simple_form", "~> 3.5"
+
+# Added at 2018-03-08 17:53:38 +0000 by ubuntu:
+gem "popper_js", "~> 1.12"
+
+# Added at 2018-03-09 14:28:12 +0000 by ubuntu:
+gem "crono", "~> 1.1"
+
+# Added at 2018-03-09 14:31:27 +0000 by ubuntu:
+gem "daemons", "~> 1.2"
+
+# Added at 2018-03-09 18:05:43 +0000 by ubuntu:
+gem "kaminari", "~> 1.1"
+
+# Added at 2018-03-09 18:26:18 +0000 by ubuntu:
+gem "font-awesome-rails", "~> 4.7"

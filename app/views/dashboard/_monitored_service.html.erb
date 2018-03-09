@@ -1,0 +1,28 @@
+
+<div class="service-panel-widget card m-1">
+  <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+  <div class="card-body">
+    <%= button_to service, method: :delete, class: "delete_service_btn btn btn-danger" do %>
+      <%= fa_icon(:times) %>
+    <% end %>
+    <h5 class="card-title"><%= service.url %></h5>
+    <div class="row">
+      <div class="col">
+        <label>Atraso</label>
+        <%= delay = service.latest_delay.round(3) %> ms
+        
+        <label>Taxa de entrega</label>
+        <%= service.latest_delivery_ratio.round(1) %> %
+      </div>
+      <div class="col">
+        <% if delay.nil? %>
+          <%= image_tag :down_img %>
+        <% elsif delay >= Rails.configuration.warning_delay %>
+          <%= image_tag :warning_up_img %>
+        <% else %>
+          <%= image_tag :up_img %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

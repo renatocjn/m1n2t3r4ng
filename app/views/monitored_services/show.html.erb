@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service type:</strong>
+  <%= @monitored_service.service_type %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @monitored_service.host %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @monitored_service.port %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @monitored_service.description %>
+</p>
+
+<%= link_to 'Edit', edit_monitored_service_path(@monitored_service) %> |
+<%= link_to 'Back', monitored_services_path %>

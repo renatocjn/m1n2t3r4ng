@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Workspace</title>
+  <title>Monitoramento Casebrás</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
 </head>
 <body>
 
-<%= yield %>
+<div class="container-responsive">
+  
+  <% unless notice.nil? %>
+    <div class="alert alert-info m-3 p-3 text-center w-50 mx-auto"> 
+      <%= notice %> 
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><%= fa_icon(:times) %></span>
+      </button>
+    </div>
+  <% end %>
+  
+  <% unless alert.nil? %>
+    <div class="alert alert-warning m-3 p-3 text-center w-50 mx-auto">
+      <%= alert %> 
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><%= fa_icon(:times) %></span>
+      </button>
+    </div>
+  <% end %>
+  
+  <div class="contents m-3 p-3"> <%= yield %> </div>
+  
+  <footer class="bg-faded mt-5 text-right p-2 text-muted">
+    Monitoramento Casebrás | contato: helpdesk@casebras.com.br | Copyright 2018
+  </footer>
+  
+  <script defer src="<%= asset_path "font-awesome" %>"></script>
+</div>
 
 </body>
 </html>
