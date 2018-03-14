@@ -5,16 +5,20 @@ class MonitoredService < ActiveRecord::Base
     has_many :monitored_service_logs, dependent: :destroy
     attr_accessor :force_create
     
-    validates :service_type, :host, :description, presence: true
-    validates :service_type, inclusion: {in: service_types.keys}
+    validates :name, presence: {message: "Você deve fornecer um nome ao serviço"}
+    validates :name, length: {maximum: 20, message: "O nome do dispositivo deve ser curto (menos de 20 caracteres)"}
+    validates :description, presence: {message: "Voce deve fornecer uma descrição ao serviço"}
+    validates :host, presence: {message: "Voce deve fornecer um endereço IP ou nome DNS do dispositivo"}
+    validates :service_type, presence: {message: "Voce deve fornecer o tipo de serviço em questão"}
+    validates :service_type, inclusion: {in: service_types.keys, message: "Tipo de serviço inválido"}
     #validates :host, format: {with: /\d{1,3}\.\d{1,3}\.\d{1,3}/, message: "IP inválido"}
-    validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0}, unless: :icmp?
-    validates :port, absence: true, if: :icmp?
-    validates :port, uniqueness: {scope: :host, message: "Essa porta já está sendo monitorada"}
+    validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
+    validates :port, absence: {message: "Não é utilizada porta de rede em monitoramento icmp"}, if: :icmp?
+    validates :port, uniqueness: {scope: :host, message: "Esta porta deste dispositivo já está sendo monitorada"}
     validate :test_single_ping, unless: Proc.new {force_create == "1" or force_create == true or force_create == 1}
     
     def test_single_ping
-        errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil?
+        errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil? and valid?
     end
     
     def execute_single_ping
@@ -69,12 +73,8 @@ class MonitoredService < ActiveRecord::Base
         get_log_statistics logs_from_last_year
     end
     
-    def latest_delay
-        latest_log.present? ? latest_log.first.delay : Float::INFINITY
-    end
-    
-    def latest_delivery_ratio
-        latest_log.present? ? latest_log.delivery_ratio : 0
+    def latest_log
+        self.monitored_service_logs.order(created_at: :desc).first
     end
     
     private
@@ -89,9 +89,5 @@ class MonitoredService < ActiveRecord::Base
         avg_delays = delays.reduce(:+).fdiv(delays.length)
         avg_del_ratios = del_ratios.reduce(:+).fdiv(del_ratios.length)
         return avg_delays*100, avg_del_ratios*100
-    end
-    
-    def latest_log
-        self.monitored_service_logs.order(created_at: :desc)
     end
 end

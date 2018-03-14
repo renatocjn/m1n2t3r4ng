@@ -25,6 +25,7 @@ module Workspace
     
     # specific configuration
     config.max_log_age = 1.year
-    config.warning_delay = 1.minute
+    config.refresh_ratio = 30.seconds
+    config.warning_delay = 0.2.seconds
   end
 end

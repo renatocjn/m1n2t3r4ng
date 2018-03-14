@@ -14,7 +14,6 @@
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
 
-# FIXME not creating logs
 Crono.perform(StartPingingServicesJob).every 1.minute
 
 Crono.perform(CleanOldMonitoringLogsJob).every 1.day, at: '23:59'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309195626) do
+ActiveRecord::Schema.define(version: 20180313183607) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string   "job_id",                               null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180309195626) do
     t.float    "delay"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.float    "delivery_ration"
+    t.float    "delivery_ratio"
   end
 
   add_index "monitored_service_logs", ["monitored_service_id"], name: "index_monitored_service_logs_on_monitored_service_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180309195626) do
     t.text     "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "name"
   end
 
   create_table "users", force: :cascade do |t|

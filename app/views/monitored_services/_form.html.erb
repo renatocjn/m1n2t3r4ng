@@ -1,5 +1,10 @@
+<%
+if defined? monitored_service
+  @monitored_service = monitored_service
+end
+%>
 
-<%= simple_form_for(@monitored_service) do |f| %>
+<%= simple_form_for @monitored_service, remote: true do |f| %>
   <%= f.error_notification %>
   
   <% if f.object.errors[:base].any? %>
@@ -11,13 +16,14 @@
   <% end %>
   
   <div class="form-inputs">
-    <%= f.input :service_type, as: :select, collection: MonitoredService.service_types.keys %>
-    <%= f.input :host %>
-    <%= f.input :port %>
-    <%= f.input :description %>
+    <%= f.input :name, label: "Nome do monitoramento" %>
+    <%= f.input :service_type, label: "Tipo de serviço", as: :select, collection: MonitoredService.service_types.keys %>
+    <%= f.input :host, label: "Endereço IP ou nome do dispositivo" %>
+    <%= f.input :port, label: "Porta de rede" %>
+    <%= f.input :description, label: "Descrição longa" %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-block btn-primary" %>
+    <%= f.button :submit, "Salvar", id: "start_monitoring_bttn", class: "btn btn-block btn-primary", data: {"disable-with" => "Enviando..."} %>
   </div>
 <% end %>

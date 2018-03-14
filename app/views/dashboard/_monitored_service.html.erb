@@ -1,27 +1,70 @@
 
-<div class="service-panel-widget card m-1">
-  <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+<% 
+  latest_log = service.latest_log
+  delay = (latest_log.nil? or latest_log.delay.nil?) ? nil : latest_log.delay
+  if delay.nil?
+    class_of_border = "border-danger bg-danger"
+  elsif delay.seconds >= Rails.configuration.warning_delay
+    class_of_border = "border-warning bg-warning"
+  else
+    class_of_border = "border-success bg-success"
+  end
+%>
+
+<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>">
   <div class="card-body">
-    <%= button_to service, method: :delete, class: "delete_service_btn btn btn-danger" do %>
-      <%= fa_icon(:times) %>
-    <% end %>
-    <h5 class="card-title"><%= service.url %></h5>
     <div class="row">
-      <div class="col">
-        <label>Atraso</label>
-        <%= delay = service.latest_delay.round(3) %> ms
-        
-        <label>Taxa de entrega</label>
-        <%= service.latest_delivery_ratio.round(1) %> %
+      <div class="col-auto">
+        <% if delay.nil? %>
+          <%= image_tag :down_arrow, class: "service_img down_img" %>
+        <% elsif delay.seconds >= Rails.configuration.warning_delay %>
+          <%= image_tag :up_warning_arrow, class: "service_img" %>
+        <% else %>
+          <%= image_tag :up_arrow, class: "service_img" %>
+        <% end %>
+      </div>
+      
+      <div class="col text-nowrap">
+        <label>
+          <%= service.name %>
+        </label>
+        <br>
+        <% if delay.present? %>
+          <label>Atraso</label>
+          <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms
+          <br>
+          <label>Taxa de entrega</label>
+          <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> %
+        <% else %>
+          <label>Atraso</label> - ms
+          <br>
+          <label>Taxa de entrega</label> 0 %
+        <% end %>
+        <br>
+        <span class="badge badge-dark", title="<%=service.url%>", data-toggle="tooltip", data-html="true", data-placement="bottom">URL</span>
+        <span class="badge badge-info", title="<%=simple_format service.description%>", data-toggle="tooltip", data-html="true", data-placement="bottom">Descrição</span>
       </div>
       <div class="col">
-        <% if delay.nil? %>
-          <%= image_tag :down_img %>
-        <% elsif delay >= Rails.configuration.warning_delay %>
-          <%= image_tag :warning_up_img %>
-        <% else %>
-          <%= image_tag :up_img %>
+        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
+          <%= fa_icon(:times) %>
         <% end %>
+        <br>
+        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+        <!-- Modal -->
+        <div class="modal fade" id="editServiceModal<%=service.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render "monitored_services/form", monitored_service: service %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

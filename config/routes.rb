@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   get '/signoff' => 'users#logoff'
   get '/logoff' => 'users#logoff'
   
+  get '/refresh_panel' => "dashboard#refresh_panel"
+  post '/update_warning_delay' => "dashboard#update_warning_delay"
+  post '/update_refresh_delay' => "dashboard#update_refresh_delay"
+  get '/force_ping' => "dashboard#force_ping"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

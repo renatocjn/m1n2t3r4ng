@@ -1,0 +1,6 @@
+
+$('#service-container').empty();
+<% @monitored_services.each do |service| %>
+    $('#service-container').append("<%= j render "dashboard/monitored_service", service: service %>");
+<% end %>
+$('[data-toggle="tooltip"]').tooltip();

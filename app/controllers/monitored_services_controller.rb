@@ -29,8 +29,13 @@ class MonitoredServicesController < ApplicationController
     respond_to do |format|
       if @monitored_service.save
         format.html { redirect_to :root, notice: 'Monitoramento iniciado com sucesso.' }
+        format.json
       else
-        format.html { redirect_to :root, alert: "Erros ao criar monitoramento" }
+        format.html do 
+          errorString = gen_error_string @monitored_service
+          redirect_to :root, alert: errorString 
+        end
+        format.json { render json: @monitored_service.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,10 +45,13 @@ class MonitoredServicesController < ApplicationController
   def update
     respond_to do |format|
       if @monitored_service.update(monitored_service_params)
-        format.html { redirect_to @monitored_service, notice: 'Monitored service was successfully updated.' }
-        format.json { render :show, status: :ok, location: @monitored_service }
+        format.html { redirect_to :root, notice: 'Monitoramento atualizado com sucesso.' }
+        format.json
       else
-        format.html { render :edit }
+        format.html do
+          errorString = gen_error_string @monitored_service
+          redirect_to :root, alert: errorString 
+        end
         format.json { render json: @monitored_service.errors, status: :unprocessable_entity }
       end
     end
@@ -54,7 +62,7 @@ class MonitoredServicesController < ApplicationController
   def destroy
     @monitored_service.destroy
     respond_to do |format|
-      format.html { redirect_to :root, notice: 'Monitored service was successfully destroyed.' }
+      format.html { redirect_to :root, notice: 'Monitoramento destruído com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -67,6 +75,16 @@ class MonitoredServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitored_service_params
-      params.require(:monitored_service).permit(:service_type, :host, :port, :description)
+      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description)
     end
+end
+
+private
+
+def gen_error_string monitored_service
+  errorString = "Errors ao criar monitoramento:\n"
+  monitored_service.errors.each do |err, msg|
+    errorString += msg + "\n"
+  end
+  return errorString
 end

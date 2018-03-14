@@ -9,29 +9,29 @@
 </head>
 <body>
 
-<div class="container-responsive">
+<div class="container-responsive m-3 p-3">
   
   <% unless notice.nil? %>
     <div class="alert alert-info m-3 p-3 text-center w-50 mx-auto"> 
-      <%= notice %> 
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true"><%= fa_icon(:times) %></span>
       </button>
+      <%= simple_format notice %> 
     </div>
   <% end %>
   
   <% unless alert.nil? %>
     <div class="alert alert-warning m-3 p-3 text-center w-50 mx-auto">
-      <%= alert %> 
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true"><%= fa_icon(:times) %></span>
       </button>
+      <%= simple_format alert %> 
     </div>
   <% end %>
   
-  <div class="contents m-3 p-3"> <%= yield %> </div>
+  <div class="contents"> <%= yield %> </div>
   
-  <footer class="bg-faded mt-5 text-right p-2 text-muted">
+  <footer class="bg-faded mt-4 text-right text-muted">
     Monitoramento Casebrás | contato: helpdesk@casebras.com.br | Copyright 2018
   </footer>
   
