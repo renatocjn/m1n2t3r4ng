@@ -75,7 +75,7 @@ class MonitoredServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitored_service_params
-      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description)
+      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description, :force_create)
     end
 end
 

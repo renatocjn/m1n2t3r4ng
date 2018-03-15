@@ -27,5 +27,6 @@ module Workspace
     config.max_log_age = 1.year
     config.refresh_ratio = 30.seconds
     config.warning_delay = 0.2.seconds
+    config.nPings = 30
   end
 end

@@ -5,6 +5,10 @@ class MonitoredService < ActiveRecord::Base
     has_many :monitored_service_logs, dependent: :destroy
     attr_accessor :force_create
     
+    after_initialize do
+        self.force_create = 0
+    end
+    
     validates :name, presence: {message: "Você deve fornecer um nome ao serviço"}
     validates :name, length: {maximum: 20, message: "O nome do dispositivo deve ser curto (menos de 20 caracteres)"}
     validates :description, presence: {message: "Voce deve fornecer uma descrição ao serviço"}
@@ -15,24 +19,26 @@ class MonitoredService < ActiveRecord::Base
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramento icmp"}, if: :icmp?
     validates :port, uniqueness: {scope: :host, message: "Esta porta deste dispositivo já está sendo monitorada"}
-    validate :test_single_ping, unless: Proc.new {force_create == "1" or force_create == true or force_create == 1}
+    validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1}
     
     def test_single_ping
-        errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil? and valid?
+        errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil?
     end
     
     def execute_single_ping
         if self.icmp?
-            p = Net::Ping::External.new self.host
+            p = Net::Ping::External.new self.host, nil, 1
         elsif self.tcp?
-            p = Net::Ping::TCP.new self.host, self.port
+            p = Net::Ping::TCP.new self.host, self.port, 1
         elsif self.udp?
-            p = Net::Ping::UDP.new self.host, self.port
+            p = Net::Ping::UDP.new self.host, self.port, 1
         end
-        
+        logger.debug "Ping object: " + p.inspect
         if p.present? and p.ping?
+            logger.debug "Ping success #{p.duration}"
             p.duration
         else
+            logger.debug "Fail"
             nil
         end
     end
@@ -75,6 +81,14 @@ class MonitoredService < ActiveRecord::Base
     
     def latest_log
         self.monitored_service_logs.order(created_at: :desc).first
+    end
+    
+    def down?
+        latest_log.delay.nil?
+    end
+    
+    def warning?
+        self.down? or latest_log.delay >= Rails.configuration.warning_delay
     end
     
     private

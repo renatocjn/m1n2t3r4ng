@@ -1,6 +1,12 @@
 
+
+$('.service-panel-widget').fadeOut(1000);
 $('#service-container').empty();
+<% @up_service = false %>
 <% @monitored_services.each do |service| %>
-    $('#service-container').append("<%= j render "dashboard/monitored_service", service: service %>");
+$('#service-container').append("<%= j render "dashboard/monitored_service", service: service %>");
 <% end %>
+organize_service_panel_widgets();
 $('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="popover"]').popover();
+$('.service-panel-widget').fadeIn(1000);

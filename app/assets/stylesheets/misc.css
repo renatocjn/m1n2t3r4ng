@@ -29,12 +29,21 @@ footer {
 
 .service-panel-widget {
     height: auto;
+    padding: 0.1rem 1rem;
 }
 
 .service-panel-widget .btn {
     width: 30px;
     height: 30px;
     margin: 0 0 0.1rem 0;
+}
+
+.service-panel-widget .col {
+    padding: 0;
+}
+
+.service-panel-widget .col:first-of-type {
+    padding-right: 1rem;
 }
 
 .card-title {
@@ -69,14 +78,27 @@ footer {
     margin-left: 0.25rem;
 }
 
-.bg-success {
-    background-color: LightGreen;
+.service-up {
+    background-color: LightGreen !important;
 }
 
-.bg-warning {
-    background-color: Orange;
+.service-warning {
+    background-color: Gold;
 }
 
-.bg-danger {
+.service-down {
     background-color: Salmon;
+}
+
+p {
+    margin-bottom: 0.25rem;
+}
+
+#main-navbar {
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.service-panel-widget .badge {
+    cursor: pointer;
 }

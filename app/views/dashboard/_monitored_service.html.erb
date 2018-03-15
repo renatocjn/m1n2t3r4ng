@@ -3,53 +3,50 @@
   latest_log = service.latest_log
   delay = (latest_log.nil? or latest_log.delay.nil?) ? nil : latest_log.delay
   if delay.nil?
-    class_of_border = "border-danger bg-danger"
+    class_of_border = "service-down"
   elsif delay.seconds >= Rails.configuration.warning_delay
-    class_of_border = "border-warning bg-warning"
+    class_of_border = "service-warning"
   else
-    class_of_border = "border-success bg-success"
+    class_of_border = "service-up"
   end
 %>
 
-<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>">
+<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>" style="display: none;">
   <div class="card-body">
     <div class="row">
-      <div class="col-auto">
-        <% if delay.nil? %>
-          <%= image_tag :down_arrow, class: "service_img down_img" %>
-        <% elsif delay.seconds >= Rails.configuration.warning_delay %>
-          <%= image_tag :up_warning_arrow, class: "service_img" %>
-        <% else %>
-          <%= image_tag :up_arrow, class: "service_img" %>
-        <% end %>
-      </div>
+      <!--<div class="col-auto">-->
+      <!--  <%# if delay.nil? %>-->
+      <!--    <%#= image_tag :down_arrow, class: "service_img down_img" %>-->
+      <!--  <%# elsif delay.seconds >= Rails.configuration.warning_delay %>-->
+      <!--    <%#= image_tag :up_warning_arrow, class: "service_img" %>-->
+      <!--  <%# else %>-->
+      <!--    <%#= image_tag :up_arrow, class: "service_img" %>-->
+      <!--  <%# end %>-->
+      <!--</div>-->
       
       <div class="col text-nowrap">
-        <label>
+        <span class="font-weight-bold">
           <%= service.name %>
-        </label>
-        <br>
+        </span>
+        <hr class="my-1 mx-0">
         <% if delay.present? %>
-          <label>Atraso</label>
-          <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms
+          <span>Atraso <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms</span>
           <br>
-          <label>Taxa de entrega</label>
-          <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> %
+          <span>Taxa de entrega <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> % </span>
         <% else %>
-          <label>Atraso</label> - ms
+          <span>Atraso - ms </span>
           <br>
-          <label>Taxa de entrega</label> 0 %
+          <span>Taxa de entrega 0 % </span>
         <% end %>
         <br>
-        <span class="badge badge-dark", title="<%=service.url%>", data-toggle="tooltip", data-html="true", data-placement="bottom">URL</span>
-        <span class="badge badge-info", title="<%=simple_format service.description%>", data-toggle="tooltip", data-html="true", data-placement="bottom">Descrição</span>
+        <span class="badge badge-dark" data-content="<%=service.url%>" data-toggle="popover" data-html="true">URL</span>
+        <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
       </div>
       <div class="col">
-        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
+        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm mb-3", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
           <%= fa_icon(:times) %>
         <% end %>
-        <br>
-        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+        <button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
         <!-- Modal -->
         <div class="modal fade" id="editServiceModal<%=service.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">

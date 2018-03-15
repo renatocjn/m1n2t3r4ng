@@ -2,7 +2,7 @@ class PingServiceJob < ActiveJob::Base
   queue_as :default
 
   def perform(monitored_service)
-    nPings = 30
+    nPings = Rails.configuration.nPings
     pings = nPings.times.collect{monitored_service.execute_single_ping}.compact
     delaysum = pings.reduce(:+)
     del_ratio = pings.length.fdiv(nPings)

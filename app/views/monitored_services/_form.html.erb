@@ -4,7 +4,7 @@ if defined? monitored_service
 end
 %>
 
-<%= simple_form_for @monitored_service, remote: true do |f| %>
+<%= simple_form_for @monitored_service do |f| %>
   <%= f.error_notification %>
   
   <% if f.object.errors[:base].any? %>
@@ -21,6 +21,7 @@ end
     <%= f.input :host, label: "Endereço IP ou nome do dispositivo" %>
     <%= f.input :port, label: "Porta de rede" %>
     <%= f.input :description, label: "Descrição longa" %>
+    <%= f.input :force_create, label: "Forçar criação de monitoramento", as: :select, collection: {"Sim" => 1, "Não" => 0}, include_blank: false %>
   </div>
 
   <div class="form-actions">
