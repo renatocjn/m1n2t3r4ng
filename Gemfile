@@ -69,3 +69,6 @@ gem "kaminari"
 
 # Added at 2018-03-09 18:26:18 +0000 by ubuntu:
 gem "font-awesome-rails"
+
+# Added at 2018-03-20 19:46:44 +0000 by ubuntu:
+gem "mail", "~> 2.7"

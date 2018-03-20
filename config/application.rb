@@ -24,9 +24,20 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     
     # specific configuration
-    config.max_log_age = 1.year
+    config.max_log_age = 1.week
     config.refresh_ratio = 30.seconds
     config.warning_delay = 0.2.seconds
     config.nPings = 30
+    
+    config.send_emails_on_down_ping = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              'mail.casebras.com.br',
+      port:                  587,
+      domain:               'casebras.com.br',
+      user_name:            'noreply@casemail.casebras.com.br',
+      password:             'c8003df127cc61fea3dc87ec20761d2c',
+      authentication:       'plain',
+      enable_starttls_auto:  true  }
   end
 end

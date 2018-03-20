@@ -4,7 +4,7 @@ class MonitoredService < ActiveRecord::Base
     enum service_type: [ :icmp, :tcp, :udp ]
     belongs_to :device, inverse_of: :monitored_services
     has_many :monitored_service_logs, dependent: :destroy
-    attr_accessor :force_create
+    attr_accessor :force_create #FIXME make sure that its working
     delegate :hostname, to: :device
     
     after_initialize do
@@ -19,7 +19,8 @@ class MonitoredService < ActiveRecord::Base
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramentos icmp"}, if: :icmp?
     #validates :port, uniqueness: {scope: :hostname, message: "Esta porta deste dispositivo já está sendo monitorada"}
-    validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1}
+    validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1} #
+    
     validate :uniqueness_of_service
     
     def test_single_ping

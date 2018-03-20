@@ -180,6 +180,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari
+  mail (~> 2.7)
   net-ping
   popper_js
   rails (~> 4.2.7)
