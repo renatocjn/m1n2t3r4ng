@@ -1,0 +1,27 @@
+<%
+  if defined? device 
+    @device = device
+  end
+%>
+
+<%= simple_form_for(@device) do |f| %>
+  <%= f.error_notification %>
+
+  <% if f.object.errors[:base].any? %>
+    <div class="alert alert-warning">
+      <% f.object.errors[:base].each do |m| %>
+        <%= m %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :name, label: "Nome do dispositivo" %>
+    <%= f.input :hostname, label: "Endereço IP ou nome de rede" %>
+    <%= f.input :description, label: "Descrição do dispositivo" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", class: "btn btn-primary btn-block", data: {"disable-with" => "Enviando..."} %>
+  </div>
+<% end %>

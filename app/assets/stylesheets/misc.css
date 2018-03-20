@@ -22,30 +22,6 @@ footer {
     min-width: 50rem;
 }
 
-.service_img {
-    width: 100px;
-    height: 100px;
-}
-
-.service-panel-widget {
-    height: auto;
-    padding: 0.1rem 1rem;
-}
-
-.service-panel-widget .btn {
-    width: 30px;
-    height: 30px;
-    margin: 0 0 0.1rem 0;
-}
-
-.service-panel-widget .col {
-    padding: 0;
-}
-
-.service-panel-widget .col:first-of-type {
-    padding-right: 1rem;
-}
-
 .card-title {
     white-space: nowrap;
 }
@@ -63,35 +39,8 @@ footer {
     white-space: nowrap;
 }
 
-.info-circle {
-    height: 20px;
-    width: 20px;
-}
-
 .card-body {
     padding: 0.75em;
-}
-
-#panel-commands .btn, 
-#panel-commands input,
-#panel-commands select {
-    margin-left: 0.25rem;
-}
-
-.service-up {
-    background-color: LightGreen !important;
-}
-
-.service-warning {
-    background-color: Gold;
-}
-
-.service-down {
-    background-color: Salmon;
-}
-
-p {
-    margin-bottom: 0.25rem;
 }
 
 #main-navbar {
@@ -99,6 +48,14 @@ p {
     margin-bottom: 1rem;
 }
 
-.service-panel-widget .badge {
-    cursor: pointer;
+hr {
+    margin: 0.5rem 0;
+}
+
+.popover-body p {
+    margin-bottom: 0;
+}
+
+[data-toggle=popover] {
+    cursor: help;
 }

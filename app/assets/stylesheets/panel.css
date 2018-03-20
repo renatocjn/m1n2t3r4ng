@@ -1,0 +1,73 @@
+
+.service-panel-widget,
+.device-panel-widget {
+    height: auto;
+    padding: 0.1rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.device-panel-widget {
+    display: inline-block;
+    margin: 0 0.25rem 0.25rem 0.25rem;
+}
+
+.device-panel-widget .btn {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0.1rem 0;
+}
+
+.device-panel-widget .card-title {
+    margin-bottom: 0.1rem;
+}
+
+.service-panel-widget .col {
+    padding: 0;
+}
+
+.service-panel-widget .col:first-of-type {
+    padding-right: 1rem;
+}
+
+.service-panel-widget hr {
+    margin: .1rem 0;
+}
+
+.service-panel-widget .service-name {
+    margin-left: .4rem;
+    font-weight: bold;
+}
+
+#panel-commands .btn, 
+#panel-commands input,
+#panel-commands select {
+    margin-left: 0.25rem;
+}
+
+.service-up, .status-counter-up {
+    background-color: LightGreen;
+}
+
+.service-warning, .status-counter-warning {
+    background-color: Gold;
+}
+
+.service-down, .status-counter-down {
+    background-color: Salmon;
+}
+
+#status_counters {
+    display: inline-block;
+}
+
+.status-counter {
+    display: inline-block;
+    margin-right: .25rem;
+    height: auto;
+    border-radius: .25rem;
+}
+
+.status-counter .counter-value {
+    padding: .25rem;
+    margin: .25rem;
+}

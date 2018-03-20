@@ -2,33 +2,23 @@
 <% 
   latest_log = service.latest_log
   delay = (latest_log.nil? or latest_log.delay.nil?) ? nil : latest_log.delay
-  if delay.nil?
+  if service.down?
     class_of_border = "service-down"
-  elsif delay.seconds >= Rails.configuration.warning_delay
+  elsif service.warning?
     class_of_border = "service-warning"
   else
     class_of_border = "service-up"
   end
 %>
 
-<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>" style="display: none;">
+<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>">
   <div class="card-body">
     <div class="row">
-      <!--<div class="col-auto">-->
-      <!--  <%# if delay.nil? %>-->
-      <!--    <%#= image_tag :down_arrow, class: "service_img down_img" %>-->
-      <!--  <%# elsif delay.seconds >= Rails.configuration.warning_delay %>-->
-      <!--    <%#= image_tag :up_warning_arrow, class: "service_img" %>-->
-      <!--  <%# else %>-->
-      <!--    <%#= image_tag :up_arrow, class: "service_img" %>-->
-      <!--  <%# end %>-->
-      <!--</div>-->
-      
       <div class="col text-nowrap">
-        <span class="font-weight-bold">
+        <span class="service-name">
           <%= service.name %>
         </span>
-        <hr class="my-1 mx-0">
+        <hr>
         <% if delay.present? %>
           <span>Atraso <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms</span>
           <br>
@@ -39,7 +29,7 @@
           <span>Taxa de entrega 0 % </span>
         <% end %>
         <br>
-        <span class="badge badge-dark" data-content="<%=service.url%>" data-toggle="popover" data-html="true">URL</span>
+        <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
         <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
       </div>
       <div class="col">
@@ -47,21 +37,21 @@
           <%= fa_icon(:times) %>
         <% end %>
         <button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
-        <!-- Modal -->
-        <div class="modal fade" id="editServiceModal<%=service.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <%= render "monitored_services/form", monitored_service: service %>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editServiceModal<%=service.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render "monitored_services/form", monitored_service: service %>
       </div>
     </div>
   </div>

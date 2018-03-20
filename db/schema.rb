@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313183607) do
+ActiveRecord::Schema.define(version: 20180315162625) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string   "job_id",                               null: false
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20180313183607) do
   end
 
   add_index "crono_jobs", ["job_id"], name: "index_crono_jobs_on_job_id", unique: true
+
+  create_table "devices", force: :cascade do |t|
+    t.string   "name"
+    t.string   "hostname"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "monitored_service_logs", force: :cascade do |t|
     t.integer  "monitored_service_id"
@@ -36,13 +44,15 @@ ActiveRecord::Schema.define(version: 20180313183607) do
 
   create_table "monitored_services", force: :cascade do |t|
     t.integer  "service_type"
-    t.string   "host"
     t.integer  "port"
     t.text     "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "name"
+    t.integer  "device_id"
   end
+
+  add_index "monitored_services", ["device_id"], name: "index_monitored_services_on_device_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

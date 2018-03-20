@@ -1,0 +1,39 @@
+
+<div class="device-panel-widget card" style="display: none;">
+  <div class="card-body">
+    <div class="row">
+      <div class="col"> 
+        <h4 class="card-title d-inline" data-toggle="popover" data-placement="right" data-content="<%=device.hostname%>"><%=device.name%></h4> 
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-info btn-sm cursor-help d-inline" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></button>
+        <button class="btn btn-warning btn-sm d-inline" data-toggle="modal" data-target="#editDeviceModal<%=device.id%>"><%= fa_icon("pencil-alt") %></button>
+        
+        <%= button_to device, method: :delete, form: {class: "d-inline"}, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{device}?"} do %>
+          <%= fa_icon(:times) %>
+        <% end %>
+      </div>
+    </div>
+    <hr>
+    <div class="device-services-container d-flex justify-content-around flex-wrap">
+      <% device.monitored_services.each do |service| %> 
+        <%= render partial: "monitored_service", locals: {service: service}%>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="editDeviceModal<%=device.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= render "devices/form", device: device %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

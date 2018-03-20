@@ -1,11 +1,19 @@
 
 window.organize_service_panel_widgets = ->
-    warnings = $('.service-warning').remove()
-    $('#service-container').prepend(warnings)
+    $('.device-panel-widget').each ->
+        if $(this).find('.service-warning').length != 0
+            $('#service-container').prepend(this)
     
-    downs = $('.service-down').remove()
-    $('#service-container').prepend(downs)
+    $('.device-panel-widget').each ->
+        if $(this).find('.service-down').length != 0
+            $('#service-container').prepend(this)
+            
+    $('.service-warning').each ->
+        $(this).parents('.device-services-container').prepend(this)
+    
+    $('.service-down').each ->
+        $(this).parents('.device-services-container').prepend(this)
     
 $(document).on "turbolinks:load", () ->
     organize_service_panel_widgets()
-    $('.service-panel-widget').fadeIn(1000)
+    $('.device-panel-widget').fadeIn(1000)

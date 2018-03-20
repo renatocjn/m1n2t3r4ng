@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to '/login', alert: "Por favor, entre com seu usuário" unless current_user.present?
   end
+  
+  def gen_error_string record
+    record.errors.collect {|err, msg| msg}.join("\n")
+  end
 end

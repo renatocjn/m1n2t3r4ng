@@ -29,7 +29,7 @@ class MonitoredServicesController < ApplicationController
     respond_to do |format|
       if @monitored_service.save
         format.html { redirect_to :root, notice: 'Monitoramento iniciado com sucesso.' }
-        format.json
+        format.json { render :show, status: :created, location: @monitored_service }
       else
         format.html do 
           errorString = gen_error_string @monitored_service
@@ -75,16 +75,6 @@ class MonitoredServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitored_service_params
-      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description, :force_create)
+      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description, :force_create, :device_id)
     end
-end
-
-private
-
-def gen_error_string monitored_service
-  errorString = "Errors ao criar monitoramento:\n"
-  monitored_service.errors.each do |err, msg|
-    errorString += msg + "\n"
-  end
-  return errorString
 end

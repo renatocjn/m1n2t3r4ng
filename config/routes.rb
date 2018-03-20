@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  resources :devices, except: :show
   root "dashboard#services_panel"
   
-  resources :monitored_services
+  resources :monitored_services, except: :show
   resources :users, only: [:show, :edit, :update]
   #get '/services_panel' => "dashboard#services_panel"
   

@@ -3,7 +3,9 @@ class DashboardController < ApplicationController
   
   def services_panel
     @monitored_service ||= MonitoredService.new
-    @monitored_services = MonitoredService.all
+    @device ||= Device.new
+    @devices = Device.all.includes(:monitored_services)
+    @status_counter = MonitoredService.get_count_of_situations
   end
   
   def update_refresh_delay
@@ -14,20 +16,23 @@ class DashboardController < ApplicationController
   def update_warning_delay
     new_seconds = Float(params[:update_warning_delay][:seconds])
     Rails.configuration.warning_delay = new_seconds.seconds
-    @monitored_services = MonitoredService.all
+    @devices = Device.all.includes(:monitored_services)
+    @status_counter = MonitoredService.get_count_of_situations
     render "refresh_panel"
   end
   
   def refresh_panel
     respond_to do |format|
-      @monitored_services = MonitoredService.all
+      @devices = Device.all.includes(:monitored_services)
+      @status_counter = MonitoredService.get_count_of_situations
       format.js
     end
   end
   
   def force_ping
     StartPingingServicesJob.perform_now
-    @monitored_services = MonitoredService.all
+    @devices = Device.all.includes(:monitored_services)
+    @status_counter = MonitoredService.get_count_of_situations
     render "refresh_panel"
   end
 end
