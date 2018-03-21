@@ -23,10 +23,13 @@ module Workspace
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
-    # specific configuration
+    # specific configuration 
+    # Do not delete, only change its values
     config.max_log_age = 1.year
     config.refresh_ratio = 30.seconds
     config.warning_delay = 0.2.seconds
     config.nPings = 30
+    
+    config.send_telegram_notifications = true
   end
 end

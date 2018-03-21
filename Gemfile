@@ -69,3 +69,6 @@ gem "kaminari"
 
 # Added at 2018-03-09 18:26:18 +0000 by ubuntu:
 gem "font-awesome-rails"
+
+# Added at 2018-03-21 14:00:53 +0000 by ubuntu:
+gem "tele_notify", "~> 0.1.1"
