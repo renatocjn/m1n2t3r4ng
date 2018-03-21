@@ -12,6 +12,11 @@ class MonitoredService < ActiveRecord::Base
         self.force_create ||= 0
     end
     
+    after_create do
+        self.update status: :down
+        PingServiceJob.perform_later self
+    end
+    
     validates :device, presence: {message: "Voce deve identificar o dispositivo que dispõe esse serviço"}
     #validates :description, presence: {message: "Voce deve fornecer uma descrição ao serviço"}
     validates :service_type, presence: {message: "Voce deve fornecer o tipo de serviço em questão"}
