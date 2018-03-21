@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "noreply@casemail.casebras.com.br"
+  default from: "notificacoes@casebras.com.br"
   layout 'mailer'
 end

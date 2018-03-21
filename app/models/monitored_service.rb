@@ -4,11 +4,11 @@ class MonitoredService < ActiveRecord::Base
     enum service_type: [ :icmp, :tcp, :udp ]
     belongs_to :device, inverse_of: :monitored_services
     has_many :monitored_service_logs, dependent: :destroy
-    attr_accessor :force_create #FIXME make sure that its working
+    attr_accessor :force_create
     delegate :hostname, to: :device
     
     after_initialize do
-        self.force_create = 0
+        self.force_create ||= 0
     end
     
     validates :device, presence: {message: "Voce deve identificar o dispositivo que dispõe esse serviço"}
@@ -18,18 +18,18 @@ class MonitoredService < ActiveRecord::Base
     #validates :hostname, format: {with: /\d{1,3}\.\d{1,3}\.\d{1,3}/, message: "IP inválido"}
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramentos icmp"}, if: :icmp?
-    #validates :port, uniqueness: {scope: :hostname, message: "Esta porta deste dispositivo já está sendo monitorada"}
+    validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
     validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1} #
     
-    validate :uniqueness_of_service
+    #validate :uniqueness_of_service
     
     def test_single_ping
         errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil?
     end
     
-    def uniqueness_of_service
-        errors.add :port, "Este serviço deste dispositivo já está sendo monitorado" if self.device.monitored_services.where(port: self.port).where("id != ?", self.id).any?
-    end
+    #def uniqueness_of_service
+    #    errors.add :port, "Este serviço deste dispositivo já está sendo monitorado" if self.device.monitored_services.where(port: self.port).where("id != ?", self.id).any?
+    #end
     
     def execute_single_ping
         if self.icmp?

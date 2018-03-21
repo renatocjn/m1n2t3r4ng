@@ -1,3 +1,5 @@
-<h3>Um serviço se encontra indisponível</h3>
+<h2>Um serviço se encontra indisponível</h2>
 
-<p>O Serviço <strong><%=@service.name%> | <%=@service.url%></strong> se encontra indisponível no momento <%=localize DateTime.now%></p>
+<p>O Serviço <strong><%=@service.name%></strong> do dispositivo <strong><%=@service.device%></strong> se encontra <strong>indisponível</strong></p>
+<p>URL do serviço: <strong><%=@service.url%></strong></p>
+<p>Momento da medição: <%=localize DateTime.now%></p> <%#FIXME wrong timezone on e-mail HTML%>

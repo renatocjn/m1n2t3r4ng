@@ -35,7 +35,7 @@ module Workspace
       address:              'mail.casebras.com.br',
       port:                  587,
       domain:               'casebras.com.br',
-      user_name:            'noreply@casemail.casebras.com.br',
+      user_name:            'notificacoes@casebras.com.br',
       password:             'c8003df127cc61fea3dc87ec20761d2c',
       authentication:       'plain',
       enable_starttls_auto:  true  }
