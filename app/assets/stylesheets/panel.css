@@ -64,10 +64,14 @@
     display: inline-block;
     margin-right: .25rem;
     height: auto;
-    border-radius: .25rem;
+    border-radius: .5rem;
+    width: 2.5rem;
+    text-align: center;
 }
 
 .status-counter .counter-value {
     padding: .25rem;
     margin: .25rem;
+    font-weight: bold;
+    font-size: 25px;
 }

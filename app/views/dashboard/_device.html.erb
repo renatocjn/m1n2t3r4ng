@@ -6,7 +6,9 @@
         <h4 class="card-title d-inline" data-toggle="popover" data-placement="right" data-content="<%=device.hostname%>"><%=device.name%></h4> 
       </div>
       <div class="col-auto">
-        <button class="btn btn-info btn-sm cursor-help d-inline" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></button>
+        <% if device.description.present? %>
+          <button class="btn btn-info btn-sm cursor-help d-inline" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></button>
+        <% end %>
         <button class="btn btn-warning btn-sm d-inline" data-toggle="modal" data-target="#editDeviceModal<%=device.id%>"><%= fa_icon("pencil-alt") %></button>
         
         <%= button_to device, method: :delete, form: {class: "d-inline"}, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{device}?"} do %>
