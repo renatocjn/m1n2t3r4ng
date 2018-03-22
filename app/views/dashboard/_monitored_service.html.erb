@@ -29,7 +29,7 @@
           <span>Taxa de entrega 0 % </span>
         <% end %>
         <br>
-        <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
+        <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type.upcase}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
         <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
       </div>
       <div class="col">

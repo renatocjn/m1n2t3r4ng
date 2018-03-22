@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class DownServiceNotifierTest < ActionMailer::TestCase
-  test "notify_down_service" do
-    mail = DownServiceNotifier.notify_down_service
+class ServiceNotifierTest < ActionMailer::TestCase
+  test "notify_service_event" do
+    mail = DownServiceNotifier.notify_service_event
     assert_equal "Notify down service", mail.subject
     assert_equal ["to@example.org"], mail.to
     assert_equal ["from@example.com"], mail.from

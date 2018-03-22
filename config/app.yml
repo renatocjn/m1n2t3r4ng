@@ -1,0 +1,21 @@
+# config/app.yml for rails-settings-cached
+defaults: &defaults
+  max_log_age: 31557600 # 1 year
+  refresh_ratio: 30
+  warning_delay: 0.2
+  n_pings: 30
+  user_login: admin
+  user_passwd: case123
+  notification_email: renatoneto@casebras.com.br
+  send_email_notifications: true
+  send_telegram_notifications: true
+  
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

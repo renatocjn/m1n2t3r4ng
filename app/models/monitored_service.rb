@@ -2,6 +2,7 @@ require 'net/ping'
 
 class MonitoredService < ActiveRecord::Base
     enum service_type: [ :icmp, :tcp, :udp ]
+    enum status: [:up, :down]
     belongs_to :device, inverse_of: :monitored_services
     has_many :monitored_service_logs, dependent: :destroy
     attr_accessor :force_create
@@ -9,6 +10,11 @@ class MonitoredService < ActiveRecord::Base
     
     after_initialize do
         self.force_create ||= 0
+    end
+    
+    after_create do
+        self.update status: :down
+        PingServiceJob.perform_later(self) unless self.force_create 
     end
     
     validates :device, presence: {message: "Voce deve identificar o dispositivo que dispõe esse serviço"}
@@ -21,6 +27,9 @@ class MonitoredService < ActiveRecord::Base
     validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
     validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1} #
     
+    #validate :uniqueness_of_service
+    validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
+    validate :test_single_ping, on: :create, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1}
     #validate :uniqueness_of_service
     
     def test_single_ping
@@ -45,6 +54,10 @@ class MonitoredService < ActiveRecord::Base
         else
             nil
         end
+    end
+    
+    def to_s 
+        name
     end
     
     def url
@@ -87,12 +100,8 @@ class MonitoredService < ActiveRecord::Base
         self.monitored_service_logs.order(created_at: :desc).first
     end
     
-    def down?
-        latest_log.nil? or latest_log.delay.nil?
-    end
-    
     def warning?
-        self.down? or latest_log.delay >= Rails.configuration.warning_delay
+        self.down? or latest_log.delay >= Setting.warning_delay
     end
     
     def MonitoredService.get_count_of_situations 

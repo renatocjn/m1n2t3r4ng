@@ -72,3 +72,9 @@ gem "font-awesome-rails"
 
 # Added at 2018-03-20 19:46:44 +0000 by ubuntu:
 gem "mail", "~> 2.7"
+# Added at 2018-03-21 14:00:53 +0000 by ubuntu:
+gem "tele_notify"
+
+# Added at 2018-03-21 17:57:14 +0000 by ubuntu:
+gem "rails-settings-cached"
+
