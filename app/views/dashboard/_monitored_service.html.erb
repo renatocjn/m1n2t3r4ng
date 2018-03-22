@@ -14,25 +14,34 @@
 <div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>">
   <div class="card-body">
     <div class="row">
-      <div class="col text-nowrap">
-        <span class="service-name">
-          <%= service.name %>
-        </span>
+      <div class="col col-xm text-nowrap">
+        <div class="service-name">
+          <% unless Setting.group_services %>
+            <%=service.device%> <br>
+          <% end %>
+          <%= service %>
+        </div>
         <hr>
         <% if delay.present? %>
-          <span>Atraso <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms</span>
+          <span class="service-delay">Atraso: <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms</span>
           <br>
-          <span>Taxa de entrega <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> % </span>
+          <span class="service-del-ratio">Taxa de entrega: <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> % </span>
         <% else %>
-          <span>Atraso - ms </span>
+          <span class="service-delay">Atraso: - ms </span>
           <br>
-          <span>Taxa de entrega 0 % </span>
+          <span class="service-del-ratio">Taxa de entrega: 0 % </span>
         <% end %>
         <br>
-        <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type.upcase}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
-        <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
+        <% if service.description.present? %>
+          <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
+        <% end %>
+        <% if Setting.grouped_services %>
+          <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type.upcase}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
+        <% else %>
+          <span class="badge badge-dark" data-content="<%=service.url%>" data-toggle="popover" data-html="true">URL</span>
+        <% end %>
       </div>
-      <div class="col">
+      <div class="col col-xm">
         <%= button_to service, method: :delete, class: "btn btn-danger btn-sm mb-3", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
           <%= fa_icon(:times) %>
         <% end %>

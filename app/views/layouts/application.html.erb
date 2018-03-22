@@ -11,28 +11,28 @@
 
 <div class="container-responsive m-3 p-3">
   
-  <% unless notice.nil? %>
-    <div class="alert alert-info m-3 p-3 text-center w-50 mx-auto"> 
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true"><%= fa_icon(:times) %></span>
-      </button>
-      <%= simple_format notice %> 
-    </div>
-  <% end %>
-  
-  <% unless alert.nil? %>
-    <div class="alert alert-warning m-3 p-3 text-center w-50 mx-auto">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true"><%= fa_icon(:times) %></span>
-      </button>
-      <%= simple_format alert %> 
+  <% if notice.present? or alert.present? %>
+    <div class="modal fade" id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= simple_format notice unless notice.nil?  %> 
+            <span class="text-alert"><%= simple_format alert unless alert.nil? %> 
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
   
   <div class="contents"> <%= yield %> </div>
   
   <footer class="bg-faded mt-4 text-right text-muted">
-    Monitoramento Casebrás | contato: helpdesk@casebras.com.br | Copyright 2018
+    MST - Monitoramento de Serviços de Tecnologia | contato: helpdesk@casebras.com.br | &copy 2018
   </footer>
   
   <script defer src="<%= asset_path "font-awesome" %>"></script>

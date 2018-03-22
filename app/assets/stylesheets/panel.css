@@ -9,9 +9,10 @@
 .device-panel-widget {
     display: inline-block;
     margin: 0 0.25rem 0.25rem 0.25rem;
+    border: 2px solid black;
 }
 
-.device-panel-widget .btn {
+#service-container .btn {
     width: 30px;
     height: 30px;
     margin: 0 0 0.1rem 0;
@@ -42,6 +43,11 @@
 #panel-commands input,
 #panel-commands select {
     margin-left: 0.25rem;
+    margin-bottom: 0.25;
+}
+
+#panel-commands .form-group {
+    margin-bottom: 0;
 }
 
 .service-up, .status-counter-up {
@@ -74,4 +80,17 @@
     margin: .25rem;
     font-weight: bold;
     font-size: 25px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.navbar-brand .text-muted {
+    font-size: 60%;
+    font-weight: normal;
+}
+
+#main-navbar .nav-link {
+    white-space: nowrap;
 }

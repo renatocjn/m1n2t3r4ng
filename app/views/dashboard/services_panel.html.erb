@@ -1,8 +1,9 @@
 
 <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-  <span class="navbar-brand" href="#">
+  <span class="navbar-brand">
       <%= image_tag :logo_casebras, height: "35px", width: "35px" %>
-      Monitoramento Casebrás
+      MST
+      <span class="d-none d-lg-inline text-muted">Monitoramento de Serviços de Tecnologia</span>
   </span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -74,33 +75,31 @@
   </div>
 </div>
 
-<%#TODO Make counters prettier%>
 <div class="d-flex justify-content-between mt-3 mb-1">
-  <div id="status-counters">
-    <div class="status-counter status-counter-up">
-      <!--<span class="counter-label">UP</span>-->
+  <div id="status-counters d-sm-block d-none">
+    <div class="status-counter status-counter-up" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços online">
       <span class="counter-value"><%=@status_counter[:up]%></span>
     </div>
-    <div class="status-counter status-counter-warning">
-      <!--<span class="counter-label">WARN</span>-->
+    <div class="status-counter status-counter-warning" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços com latência alta">
       <span class="counter-value"><%=@status_counter[:warning]%></span>
     </div>
-    <div class="status-counter status-counter-down">
-      <!--<span class="counter-label">DOWN</span>-->
+    <div class="status-counter status-counter-down" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços offline">
       <span class="counter-value"><%=@status_counter[:down]%></span>
     </div>
   </div>
   
-  <div id="panel-commands" class="d-inline-flex justify-content-end">
+  <div id="panel-commands" class="d-sm-inline-flex justify-content-end flex-wrap d-none ">
     <% refresh_intervals = {"1 segundo" => 1, "30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
     <% warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
     
-    <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success", method: :get do %>
-      <%= fa_icon "sync-alt", text: "Atualizar" %>
+    <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success ", method: :get do %>
+      <%= fa_icon "sync-alt" %>
+      <span class="d-none d-md-inline">Atualizar</span>
     <% end %>
     
     <%= button_to "/force_ping.js", remote: true, data: {"disable-with" => "Pingando..."}, id: "force_ping_bttn", class: "btn btn-primary", method: :get do %>
-      <%= fa_icon "play", text: "Forçar medição" %>
+      <%= fa_icon "play" %>
+      <span class="d-none d-md-inline">Forçar medição</span>
     <% end %>
     
     <div class="d-inline">
@@ -118,8 +117,14 @@
 </div>
 
 <div id='service-container' class="d-flex justify-content-center flex-wrap">
-  <% @devices.each do |device| %>
-    <%= render partial: "device", locals: {device: device}%>
+  <% if Setting.group_services %>
+    <% @devices.each do |device| %>
+      <%= render partial: "device", locals: {device: device}%>
+    <% end %>
+  <% else %>
+    <% @monitored_services.each do |service| %>
+      <%= render partial: "monitored_service", locals: {service: service}%>
+    <% end %>
   <% end %>
 </div>
 

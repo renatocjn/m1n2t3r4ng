@@ -9,10 +9,16 @@ window.organize_service_panel_widgets = ->
             $('#service-container').prepend(this)
             
     $('.service-warning').each ->
-        $(this).parents('.device-services-container').prepend(this)
+        if $(this).parents('.device-services-container').length == 0
+            $(this).parents('#service-container').prepend(this)
+        else
+            $(this).parents('.device-services-container').prepend(this)
     
     $('.service-down').each ->
-        $(this).parents('.device-services-container').prepend(this)
+        if $(this).parents('.device-services-container').length == 0
+            $(this).parents('#service-container').prepend(this)
+        else
+            $(this).parents('.device-services-container').prepend(this)
     
 $(document).on "turbolinks:load", () ->
     organize_service_panel_widgets()

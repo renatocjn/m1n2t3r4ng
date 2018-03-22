@@ -24,7 +24,11 @@
         <div class="col"><%= f.input :user_login, label: "Nome de usuário de acesso" %></div>
         <div class="col"><%= f.input :user_passwd, label: "Senha de acesso ao painel" %></div>
       </div>
-      <%= f.input :notification_email, label: "Email para notificações" %>
+      <div class="row">
+        <div class="col"><%= f.input :notification_email, label: "Email para notificações" %></div>
+        <div class="col"><%= f.input :group_services, label: "Agrupar serviços?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+      </div>
+      
       <div class="row">
         <div class="col"><%= f.input :send_email_notifications, label: "Notificar eventos por email?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
         <div class="col"><%= f.input :send_telegram_notifications, label: "Notificar eventos por telegram?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
