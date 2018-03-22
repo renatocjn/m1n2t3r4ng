@@ -97,7 +97,7 @@ class MonitoredService < ActiveRecord::Base
     end
     
     def warning?
-        self.down? or latest_log.delay >= Rails.configuration.warning_delay
+        self.down? or latest_log.delay >= Setting.warning_delay
     end
     
     def MonitoredService.get_count_of_situations 

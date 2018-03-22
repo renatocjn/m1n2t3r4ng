@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    redirect_to '/login', alert: "Por favor, entre com seu usuário" unless current_user.present?
+    redirect_to '/login', alert: "Por favor, entre com seu usuário" unless session.include? :user_authorized
   end
   
   def gen_error_string record

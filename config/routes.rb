@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'session/login'
+
   resources :devices, except: :show
   root "dashboard#services_panel"
   
@@ -6,18 +8,17 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   #get '/services_panel' => "dashboard#services_panel"
   
-  get '/signin' => 'users#login'
-  post '/signin' => 'users#create_session'
+  get '/signin' => 'session#new'
+  post '/signin' => 'session#create'
   
-  get '/login' => 'users#login'
-  post '/login' => 'users#create_session'
+  get '/login' => 'session#new'
+  post '/login' => 'session#create'
   
-  get '/signoff' => 'users#logoff'
-  get '/logoff' => 'users#logoff'
+  get '/signoff' => 'session#destroy'
+  get '/logoff' => 'session#destroy'
   
   get '/refresh_panel' => "dashboard#refresh_panel"
-  post '/update_warning_delay' => "dashboard#update_warning_delay"
-  post '/update_refresh_delay' => "dashboard#update_refresh_delay"
+  post '/' => "dashboard#update_settings"
   get '/force_ping' => "dashboard#force_ping"
   
   post '/567635476:AAEg8S3DkECGVXMnyUwRMnVSY-VEKJjzaaU' => 'application#webhook'

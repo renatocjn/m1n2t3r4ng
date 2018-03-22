@@ -124,6 +124,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-settings-cached (0.6.6)
+      rails (>= 4.2.0)
     railties (4.2.10)
       actionpack (= 4.2.10)
       activesupport (= 4.2.10)
@@ -200,12 +202,13 @@ DEPENDENCIES
   net-ping
   popper_js
   rails (~> 4.2.7)
+  rails-settings-cached
   sass-rails
   sdoc
   simple_form
   spring
   sqlite3
-  tele_notify (~> 0.1.1)
+  tele_notify
   turbolinks
   uglifier
   web-console

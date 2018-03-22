@@ -71,4 +71,7 @@ gem "kaminari"
 gem "font-awesome-rails"
 
 # Added at 2018-03-21 14:00:53 +0000 by ubuntu:
-gem "tele_notify", "~> 0.1.1"
+gem "tele_notify"
+
+# Added at 2018-03-21 17:57:14 +0000 by ubuntu:
+gem "rails-settings-cached"
