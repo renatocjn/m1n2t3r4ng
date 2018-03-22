@@ -69,9 +69,15 @@ gem "kaminari"
 
 # Added at 2018-03-09 18:26:18 +0000 by ubuntu:
 gem "font-awesome-rails"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 58ca25ea501780c0d5c8e24212c113ef12cdc6de
 
 # Added at 2018-03-21 14:00:53 +0000 by ubuntu:
 gem "tele_notify"
 
 # Added at 2018-03-21 17:57:14 +0000 by ubuntu:
 gem "rails-settings-cached"
+
+>>>>>>> 58ca25ea501780c0d5c8e24212c113ef12cdc6de
