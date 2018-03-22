@@ -2,7 +2,11 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+<<<<<<< HEAD
 gem 'rails', '~> 4.2.7'
+=======
+gem 'rails'
+>>>>>>> 874899bda87c7be3ae55afe35552ae989b45f068
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -69,9 +73,12 @@ gem "kaminari"
 
 # Added at 2018-03-09 18:26:18 +0000 by ubuntu:
 gem "font-awesome-rails"
+<<<<<<< HEAD
 
 # Added at 2018-03-21 14:00:53 +0000 by ubuntu:
 gem "tele_notify"
 
 # Added at 2018-03-21 17:57:14 +0000 by ubuntu:
 gem "rails-settings-cached"
+=======
+>>>>>>> 874899bda87c7be3ae55afe35552ae989b45f068
