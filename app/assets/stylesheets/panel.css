@@ -1,9 +1,8 @@
 
-.service-panel-widget,
-.device-panel-widget {
+.service-panel-widget {
     height: auto;
     padding: 0.1rem 0.5rem;
-    margin-bottom: 1rem;
+    margin: 0.1rem;
 }
 
 .device-panel-widget {
@@ -12,9 +11,9 @@
     border: 2px solid black;
 }
 
-#service-container .btn {
-    width: 30px;
-    height: 30px;
+.device-panel-widget > .btn {
+    width: 30px !important;
+    height: 30px !important;
     margin: 0 0 0.1rem 0;
 }
 
@@ -28,7 +27,21 @@
 
 .service-panel-widget .col:first-of-type {
     padding-right: 1rem;
+    vertical-align: bottom;
+    margin-top: auto;
 }
+
+.service-panel-widget .btn {
+    width: 20px;
+    height: 20px;
+    font-size: 9pt;
+    padding: 0;
+    margin-bottom: 0.1rem;
+}
+
+/*.service-panel-widget .col .btn:first-of-type {*/
+/*    margin-bottom: .75rem;*/
+/*}*/
 
 .service-panel-widget hr {
     margin: .1rem 0;

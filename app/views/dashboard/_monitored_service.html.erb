@@ -1,7 +1,5 @@
 
 <% 
-  latest_log = service.latest_log
-  delay = (latest_log.nil? or latest_log.delay.nil?) ? nil : latest_log.delay
   if service.down?
     class_of_border = "service-down"
   elsif service.warning?
@@ -11,10 +9,10 @@
   end
 %>
 
-<div class="service-panel-widget card mb-3 mx-1 <%=class_of_border%>">
+<div class="service-panel-widget card <%=class_of_border%>">
   <div class="card-body">
     <div class="row">
-      <div class="col col-xm text-nowrap">
+      <div class="col text-nowrap">
         <div class="service-name">
           <% unless Setting.group_services %>
             <%=service.device%> <br>
@@ -22,30 +20,14 @@
           <%= service %>
         </div>
         <hr>
-        <% if delay.present? %>
-          <span class="service-delay">Atraso: <%= number_with_precision (delay*1000.0), strip_insignificant_zeros: true %> ms</span>
-          <br>
-          <span class="service-del-ratio">Taxa de entrega: <%= number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true %> % </span>
-        <% else %>
-          <span class="service-delay">Atraso: - ms </span>
-          <br>
-          <span class="service-del-ratio">Taxa de entrega: 0 % </span>
-        <% end %>
-        <br>
-        <% if service.description.present? %>
-          <span class="badge badge-info" data-content="<%=simple_format service.description%>" data-toggle="popover" data-html="true">Descrição</span>
-        <% end %>
-        <% if Setting.grouped_services %>
-          <span class="badge badge-dark" data-content="<%=service.icmp? ? "ICMP" : "#{service.service_type.upcase}/#{service.port}"%>" data-toggle="popover" data-html="true">Porta</span>
-        <% else %>
-          <span class="badge badge-dark" data-content="<%=service.url%>" data-toggle="popover" data-html="true">URL</span>
-        <% end %>
+        <%=metrics_string(service)%> <br>
       </div>
-      <div class="col col-xm">
-        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm mb-3", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
-          <%= fa_icon(:times) %>
+      <div class="col d-flex flex-column justify-content-around">
+        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
+          <%= fa_icon("minus-circle") %>
         <% end %>
-        <button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+        <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+        <button class="btn btn-info btn-sm" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></button>
       </div>
     </div>
   </div>
