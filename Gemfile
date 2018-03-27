@@ -3,16 +3,14 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.7'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-# Use SCSS for stylesheets
+
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+ gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -43,6 +41,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'sqlite3'
 end
 
 
@@ -78,3 +78,5 @@ gem "mail", "~> 2.7"
 # Added at 2018-03-21 17:57:14 +0000 by ubuntu:
 gem "rails-settings-cached"
 
+# Added at 2018-03-26 16:24:25 -0300 by user:
+gem "mysql2", '~> 0.3.18'
