@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   #IMPORTANT! THESE TWO LINES MUST COME AFTER protect_from_forgery!
-  skip_before_filter :verify_authenticity_token, :only => :webhook
-  include TeleNotify::Controller
+  #skip_before_filter :verify_authenticity_token, :only => :webhook
+  #include TeleNotify::Controller
   
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

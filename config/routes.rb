@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   post '/' => "dashboard#update_settings"
   get '/force_ping' => "dashboard#force_ping"
   
-  post '/567635476:AAEg8S3DkECGVXMnyUwRMnVSY-VEKJjzaaU' => 'application#webhook'
+  #post '/567635476:AAEg8S3DkECGVXMnyUwRMnVSY-VEKJjzaaU' => 'application#webhook'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
