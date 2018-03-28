@@ -84,7 +84,8 @@
     margin-right: .25rem;
     height: auto;
     border-radius: .5rem;
-    width: 2.5rem;
+    min-width: 2.5rem;
+    width: auto;
     text-align: center;
 }
 

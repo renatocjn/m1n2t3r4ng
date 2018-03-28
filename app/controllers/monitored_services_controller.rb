@@ -28,7 +28,7 @@ class MonitoredServicesController < ApplicationController
     @monitored_service = MonitoredService.new(monitored_service_params)
     respond_to do |format|
       if @monitored_service.save
-        format.html { redirect_to :root, notice: 'Monitoramento iniciado com sucesso.' }
+        format.html { redirect_to :root }
         format.json { render :show, status: :created, location: @monitored_service }
       else
         format.html do 
@@ -45,7 +45,7 @@ class MonitoredServicesController < ApplicationController
   def update
     respond_to do |format|
       if @monitored_service.update(monitored_service_params)
-        format.html { redirect_to :root, notice: 'Monitoramento atualizado com sucesso.' }
+        format.html { redirect_to :root }
         format.json
       else
         format.html do
@@ -62,7 +62,7 @@ class MonitoredServicesController < ApplicationController
   def destroy
     @monitored_service.destroy
     respond_to do |format|
-      format.html { redirect_to :root, notice: 'Monitoramento destruído com sucesso.' }
+      format.html { redirect_to :root }
       format.json { head :no_content }
     end
   end

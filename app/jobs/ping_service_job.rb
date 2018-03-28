@@ -14,7 +14,7 @@ class PingServiceJob < ActiveJob::Base
       #if Setting.send_telegram_notifications and (monitored_service.up? or monitored_service.status.nil?)
       #  TeleNotify::TelegramUser.all.each {|u| u.send_message(gen_message(:down, monitored_service))}
       #end
-      monitored_service.update! status: :down if monitored_service.up? or monitored_service.status.nil?
+      monitored_service.update! (status: :down) if monitored_service.up? or monitored_service.status.nil?
     else
       avg_delay = delaysum.fdiv(nPings)
       monitored_service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
@@ -24,9 +24,11 @@ class PingServiceJob < ActiveJob::Base
       #if Setting.send_telegram_notifications and (monitored_service.down? or monitored_service.status.nil?)
       #  TeleNotify::TelegramUser.all.each {|u| u.send_message(gen_message(:up, monitored_service))}
       #end
-      monitored_service.update! status: :up if monitored_service.down? or monitored_service.status.nil?
+      monitored_service.update! (status: :up) if monitored_service.down? or monitored_service.status.nil?
     end
   end
+  
+  private
   
   def gen_message status, monitored_service
     status_str = status == :up ? "online" : "offline"

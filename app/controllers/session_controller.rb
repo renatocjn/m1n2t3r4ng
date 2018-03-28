@@ -8,7 +8,7 @@ class SessionController < ApplicationController
   def create
     if login_params[:username] == Setting.user_login and login_params[:password] == Setting.user_passwd
       session[:user_authorized] = true
-      redirect_to :root, notice: "Bem vindo"
+      redirect_to :root
     elsif login_params[:username] != Setting.user_login and login_params[:password] != Setting.user_passwd
       redirect_to login_path, Alert: "Usuário e senha incorretos"
     elsif login_params[:username] != Setting.user_login
@@ -20,7 +20,7 @@ class SessionController < ApplicationController
   
   def destroy
     session.delete :user_authorized
-    redirect_to login_path, notice: "Até a próxima"
+    redirect_to login_path
   end
   
   private

@@ -27,7 +27,7 @@ class DevicesController < ApplicationController
     @device = Device.new(device_params)
     respond_to do |format|
       if @device.save
-        format.html { redirect_to :root, notice: 'Dispositivo criado com sucesso.' }
+        format.html { redirect_to :root }
         format.json { render :show, status: :created, location: @device }
       else
         format.html do 
@@ -44,7 +44,7 @@ class DevicesController < ApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params)
-        format.html { redirect_to :root, notice: 'Dispositivo atualizado com sucesso.' }
+        format.html { redirect_to :root }
         format.json { render :show, status: :ok, location: @device }
       else
         format.html do 
@@ -61,7 +61,7 @@ class DevicesController < ApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to :root, notice: 'Dispositivo destruído com sucesso.' }
+      format.html { redirect_to :root }
       format.json { head :no_content }
     end
   end

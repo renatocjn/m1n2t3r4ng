@@ -1,8 +1,8 @@
 class DashboardController < ApplicationController
   before_filter :authorize
+  before_filter :setup_panel_variables, except: :update_settings
   
   def services_panel
-    setup_panel_variables
   end
   
   def update_settings
@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
     begin
       Setting.refresh_ratio = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
     rescue ArgumentError
-      error_messages << "Tempo máximo de histórico inválido"
+      error_messages << "Intervalo de atualização da página inválido"
     end
     
     begin
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
     
     respond_to do |format|
       if error_messages.empty?
-        format.html {redirect_to :root, notice: "Configurações atualizadas"}
+        format.html { redirect_to :root }
         format.js do 
           if settings_params[:refresh_ratio].blank?
             setup_panel_variables
@@ -52,14 +52,12 @@ class DashboardController < ApplicationController
   
   def refresh_panel
     respond_to do |format|
-      setup_panel_variables
       format.js
     end
   end
   
   def force_ping
     StartPingingServicesJob.perform_now
-    setup_panel_variables
     render "refresh_panel"
   end
   
