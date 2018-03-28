@@ -2,30 +2,34 @@ class PingServiceJob < ActiveJob::Base
   queue_as :default
 
   def perform(monitored_service)
+    p monitored_service
+    p monitored_service.device
     nPings = Setting.n_pings
     pings = nPings.times.collect{monitored_service.execute_single_ping}.compact
     delaysum = pings.reduce(:+)
     del_ratio = pings.length.fdiv(nPings)
     if delaysum == nil
       monitored_service.monitored_service_logs.create!(delivery_ratio: del_ratio)
-      if Setting.send_email_notifications and (monitored_service.up? or monitored_service.status.nil?)
+      if Setting.send_email_notifications and monitored_service.up?
         ServiceNotifier.notify_service_event(:down, monitored_service).deliver_now
       end
       #if Setting.send_telegram_notifications and (monitored_service.up? or monitored_service.status.nil?)
       #  TeleNotify::TelegramUser.all.each {|u| u.send_message(gen_message(:down, monitored_service))}
       #end
-      monitored_service.update!(status: :down) if monitored_service.up? or monitored_service.status.nil?
+      monitored_service.update!(status: :down) if monitored_service.up?
     else
+      p delaysum
       avg_delay = delaysum.fdiv(nPings)
       monitored_service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
-      if Setting.send_email_notifications and (monitored_service.down? or monitored_service.status.nil?)
+      if Setting.send_email_notifications and monitored_service.down?
         ServiceNotifier.notify_service_event(:up, monitored_service).deliver_now
       end
       #if Setting.send_telegram_notifications and (monitored_service.down? or monitored_service.status.nil?)
       #  TeleNotify::TelegramUser.all.each {|u| u.send_message(gen_message(:up, monitored_service))}
       #end
-      monitored_service.update!(status: :up) if monitored_service.down? or monitored_service.status.nil?
+      monitored_service.update!(status: :up) if monitored_service.down?
     end
+    p monitored_service.status
   end
   
   private
