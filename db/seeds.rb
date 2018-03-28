@@ -8,8 +8,6 @@
 
 
 ActiveRecord::Base.transaction do
-    User.create! name: "Administrador", login: "admin", password: "case123", password_confirmation: "case123", email: "helpdesk@casebras.com.br"
-    
     device = Device.create! name: "RB CORPORATE", hostname: "corporate.casebrastecnologia.com.br"
     device.monitored_services.create! name: "Winbox", port: 30000, service_type: :tcp
     device.monitored_services.create! name: "Câmeras", port: 85, service_type: :tcp

@@ -23,7 +23,7 @@ module Workspace
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
-    config.active_job.queue_adapter = :async
+    #config.active_job.queue_adapter = :async
     
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -33,6 +33,7 @@ module Workspace
       user_name:            'notificacoes@casebras.com.br',
       password:             'c8003df127cc61fea3dc87ec20761d2c',
       authentication:       'plain',
-      enable_starttls_auto:  true  }
+      enable_starttls_auto:  true,
+      openssl_verify_mode:  'none' }
   end
 end
