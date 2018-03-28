@@ -23,7 +23,7 @@ end
         <%= f.input :service_type, label: "Tipo de serviço", as: :select, collection: MonitoredService.service_types.keys %>
       </div>
       <div class="col">
-        <%= f.input :force_create, label: "Pular verificação inicial?", as: :select, collection: {"Sim" => 1, "Não" => 0}, include_blank: false %>
+        <%= f.input :force_create, label: "Pular verificação inicial?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %>
         <%= f.input :port, label: "Porta de rede" %>
       </div>
     </div>

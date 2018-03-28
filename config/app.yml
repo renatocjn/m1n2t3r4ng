@@ -3,7 +3,7 @@ defaults: &defaults
   max_log_age: 31557600 # 1 year
   refresh_ratio: 30
   warning_delay: 0.2
-  n_pings: 30
+  n_pings: 10
   user_login: admin
   user_passwd: case123
   notification_email: renatoneto@casebras.com.br

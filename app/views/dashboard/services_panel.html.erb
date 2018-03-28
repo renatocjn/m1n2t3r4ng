@@ -89,7 +89,7 @@
   </div>
   
   <div id="panel-commands" class="d-sm-inline-flex justify-content-end flex-wrap d-none ">
-    <% refresh_intervals = {"1 segundo" => 1, "30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
+    <% refresh_intervals = {"30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
     <% warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
     
     <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando...", "toggle" => "tooltip", "placement" => "bottom"}, title: "Atualizar página", id: "refresh_bttn", class: "btn btn-success ", method: :get do %>

@@ -9,14 +9,15 @@ class MonitoredService < ActiveRecord::Base
     delegate :hostname, to: :device
     
     after_initialize do
-        self.force_create ||= 0
+        self.force_create ||= false
     end
     
     after_create do
-        self.update status: :down
-        PingServiceJob.perform_later(self) unless self.force_create 
+        self.update(status: :down)
+        PingServiceJob.perform_later(self) unless self.force_create == true or self.force_create == "true"
     end
     
+    validates :name, presence: {message: "Voce deve identificar este serviço"}
     validates :device, presence: {message: "Voce deve identificar o dispositivo que dispõe esse serviço"}
     #validates :description, presence: {message: "Voce deve fornecer uma descrição ao serviço"}
     validates :service_type, presence: {message: "Voce deve fornecer o tipo de serviço em questão"}
@@ -25,12 +26,7 @@ class MonitoredService < ActiveRecord::Base
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramentos icmp"}, if: :icmp?
     validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
-    validate :test_single_ping, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1} #
-    
-    #validate :uniqueness_of_service
-    validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
-    validate :test_single_ping, on: :create, unless: Proc.new {|record| record.force_create == "1" or record.force_create == true or record.force_create == 1}
-    #validate :uniqueness_of_service
+    validate :test_single_ping, unless: Proc.new {|record| record.force_create == true or record.force_create == "true"}
     
     def test_single_ping
         errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil?
