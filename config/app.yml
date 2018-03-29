@@ -9,7 +9,7 @@ defaults: &defaults
   notification_email: renatoneto@casebras.com.br
   send_email_notifications: true
   send_telegram_notifications: true
-  group_services: true
+  group_services: false
   
 
 development:

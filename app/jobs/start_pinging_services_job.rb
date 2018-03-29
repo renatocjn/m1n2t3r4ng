@@ -3,7 +3,7 @@ class StartPingingServicesJob < ActiveJob::Base
 
   def perform(*args)
     MonitoredService.all.each do |service|
-      PingServiceJob.perform_later service
+      PingServiceJob.perform_now service
     end
   end
 end

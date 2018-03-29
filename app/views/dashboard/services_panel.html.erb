@@ -92,12 +92,12 @@
     <% refresh_intervals = {"30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
     <% warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
     
-    <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando...", "toggle" => "tooltip", "placement" => "bottom"}, title: "Atualizar página", id: "refresh_bttn", class: "btn btn-success ", method: :get do %>
+    <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success ", method: :get do %>
       <%= fa_icon "sync-alt" %>
       <span class="d-none d-md-inline">Atualizar</span>
     <% end %>
     
-    <%= button_to "/force_ping.js", remote: true, data: {"disable-with" => "Pingando...", "toggle" => "tooltip", "placement" => "bottom"}, title: "Realizar medição dos serviços", id: "force_ping_bttn", class: "btn btn-primary", method: :get do %>
+    <%= button_to "/force_ping.js", remote: true, data: {"disable-with" => "Pingando..."}, id: "force_ping_bttn", class: "btn btn-primary", method: :get do %>
       <%= fa_icon "play" %>
       <span class="d-none d-md-inline">Forçar medição</span>
     <% end %>
@@ -129,6 +129,8 @@
     <% end %>
   <% end %>
 </div>
+
+<%= audio_tag "error.wav", id:"error_audio" %>
 
 <script>
   <%= render "update_refresh_delay.js" %>

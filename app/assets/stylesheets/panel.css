@@ -108,3 +108,14 @@
 #main-navbar .nav-link {
     white-space: nowrap;
 }
+
+.card-body {
+    padding: 0.3rem 0.75rem;
+}
+
+#service-container {
+    align-content: flex-start;
+    overflow-y: scroll;
+    height: 65vh;
+    width: 100%;
+}
