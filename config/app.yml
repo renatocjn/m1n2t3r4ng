@@ -10,8 +10,8 @@ defaults: &defaults
   send_email_notifications: true
   send_telegram_notifications: true
   group_services: false
+  private_subscription_key: DgFM50YqRs1cX5GoZvjdOFVE5iwFcJbfqV3zl0yg
   
-
 development:
   <<: *defaults
 

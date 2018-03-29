@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321180753) do
+ActiveRecord::Schema.define(version: 20180329135536) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string   "job_id",                               null: false
@@ -66,14 +66,11 @@ ActiveRecord::Schema.define(version: 20180321180753) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
-  create_table "telegram_users", force: :cascade do |t|
-    t.integer  "telegram_id"
-    t.string   "first_name"
-    t.string   "username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "telegram_subscribers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "telegram_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
-
-  add_index "telegram_users", ["telegram_id"], name: "index_telegram_users_on_telegram_id"
 
 end

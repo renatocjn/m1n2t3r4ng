@@ -25,7 +25,7 @@ ActiveRecord::Base.transaction do
     device = Device.create! name: "RB PERBOYRE", hostname: "perboyre.casebrastecnologia.com.br"
     device.monitored_services.create! name: "Winbox", port: 30000, service_type: :tcp, force_create: true
     
-    device = Device.create! name: "RB HELP MARANGUAPE", hostname: "maranguape.casebrastecnologia.com.br"
+    device = Device.create! name: "RB MARANGUAPE", hostname: "maranguape.casebrastecnologia.com.br"
     device.monitored_services.create! name: "Winbox", port: 30000, service_type: :tcp, force_create: true
     
     device = Device.create! name: "RB CALL RECIFE", hostname: "callrecife.casebrastecnologia.com.br"
