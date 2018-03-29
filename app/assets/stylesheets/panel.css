@@ -114,8 +114,8 @@
 }
 
 #service-container {
-    align-content: start;
+    align-content: flex-start;
     overflow-y: scroll;
-    height: 73vh;
+    height: 65vh;
     width: 100%;
 }

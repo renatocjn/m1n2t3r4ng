@@ -52,6 +52,6 @@ hr {
     text-align: center;
 }
 
-body {
-    height: 100vh;
+.contents {
+    height: 80vh;
 }
