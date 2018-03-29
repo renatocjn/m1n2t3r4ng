@@ -26,7 +26,7 @@ class MonitoredService < ActiveRecord::Base
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramentos icmp"}, if: :icmp?
     validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
-    validate :test_single_ping, unless: Proc.new {|record| record.force_create == true or record.force_create == "true"}
+    validate :test_single_ping, on: :create, unless: Proc.new {|record| record.force_create == true or record.force_create == "true"}
     
     def test_single_ping
         errors.add :base, "O serviço aparentemente não está operacional agora" if execute_single_ping.nil?
