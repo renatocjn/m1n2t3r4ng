@@ -31,7 +31,8 @@
     margin-top: auto;
 }
 
-.service-panel-widget .btn {
+.service-panel-widget .btn,
+.service-panel-widget form {
     width: 20px;
     height: 20px;
     font-size: 9pt;
@@ -118,4 +119,17 @@
     overflow-y: scroll;
     height: 65vh;
     width: 100%;
+}
+
+.telegram_bot_username,
+.telegram_secret_key {
+    text-align: center;
+    margin-bottom: 1rem;
+    display: block;
+    border-radius: 0.25rem;
+}
+
+.telegram_bot_username {
+    font-size: 150%;
+    padding: auto;
 }

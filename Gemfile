@@ -72,11 +72,12 @@ gem "font-awesome-rails"
 
 # Added at 2018-03-20 19:46:44 +0000 by ubuntu:
 gem "mail", "~> 2.7"
-# Added at 2018-03-21 14:00:53 +0000 by ubuntu:
-#gem "tele_notify"
 
 # Added at 2018-03-21 17:57:14 +0000 by ubuntu:
 gem "rails-settings-cached"
 
 # Added at 2018-03-26 16:24:25 -0300 by user:
 gem "mysql2", '~> 0.3.18'
+
+# Added at 2018-03-29 11:49:25 +0000 by ubuntu:
+gem "telegram-bot", "~> 0.13.0"

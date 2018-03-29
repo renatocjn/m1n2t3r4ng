@@ -21,10 +21,12 @@
         <div class="col-md"><%= f.input :max_log_age, label: "Tempo máximo de histórico", as: :select, collection: log_ages, include_blank: false %></div>
         <div class="col-md"><%= f.input :n_pings, label: "Número de pings por medição", as: :integer, input_html: {min: 1, max: 30} %></div>
       </div>
+      
       <div class="row">
         <div class="col-md"><%= f.input :user_login, label: "Nome de usuário de acesso" %></div>
         <div class="col-md"><%= f.input :user_passwd, label: "Senha de acesso ao painel" %></div>
       </div>
+      
       <div class="row">
         <div class="col-md"><%= f.input :notification_email, label: "Email para notificações" %></div>
         <div class="col-md"><%= f.input :group_services, label: "Agrupar serviços?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
@@ -33,6 +35,17 @@
       <div class="row">
         <div class="col-md"><%= f.input :send_email_notifications, label: "Notificar eventos por email?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
         <div class="col-md"><%= f.input :send_telegram_notifications, label: "Notificar eventos por telegram?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md">
+          <a class="telegram_bot_username text-info" href="https://telegram.me/notificacoes_mst_casebras_bot"> <i class="fab fa-telegram"></i> Bot de notificações telegram </a>
+        </div>
+          
+        <div class="col-md">
+          <label><%=fa_icon :key, text: "Chave secreta do telegram"%></label>
+          <span class="telegram_secret_key alert-danger"><%=Setting.private_subscription_key%></span>
+        </div>
       </div>
     </div>
     
