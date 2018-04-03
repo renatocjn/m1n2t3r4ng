@@ -2,10 +2,13 @@
 
 echo "Starting cronos..."
 bundle exec crono start
+echo
 
-echo "Starting Telegram poller"
+echo "Starting Telegram poller..."
 nohup bundle exec rake telegram:bot:poller &> log/telegram_poller.log&
-echo "Iniciado com pid $!"
+echo "Poller started (pid $!)"
+echo
 
-echo "Starting delayed job worker"
+echo "Starting delayed job worker..."
 bundle exec bin/delayed_job start
+echo

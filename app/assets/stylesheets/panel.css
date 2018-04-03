@@ -1,8 +1,11 @@
 
 .service-panel-widget {
-    height: auto;
-    padding: 0.1rem 0.5rem;
+    height: 6.3rem;
+    width: 13rem;
+    /*padding: 1rem 15.5rem;*/
     margin: 0.1rem;
+    border: .1rem gray solid;
+    border-radius: .35rem;
 }
 
 .device-panel-widget {
@@ -21,14 +24,17 @@
     margin-bottom: 0.1rem;
 }
 
-.service-panel-widget .col {
-    padding: 0;
+/*.service-panel-widget .col {*/
+    /*padding: 0;*/
+/*}*/
+
+.service-actions {
+    padding-right: .5rem;
 }
 
-.service-panel-widget .col:first-of-type {
-    padding-right: 1rem;
-    vertical-align: bottom;
-    margin-top: auto;
+.service-info {
+    padding-right: 0;
+    padding-left: .5rem;
 }
 
 .service-panel-widget .btn,

@@ -10,30 +10,26 @@
   end
 %>
 
-<div class="service-panel-widget card <%=class_of_border%>">
-  <div class="card-body">
-    <div class="row">
-      <div class="col text-nowrap">
-        <div class="service-name">
-          <% unless Setting.group_services %>
-            <%=service.device%> <br>
-          <% end %>
-          <%= service %>
-        </div>
-        <hr>
-        <%=metrics_string(service)%> <br>
-      </div>
-      <div class="col d-flex flex-column justify-content-around">
-        <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
-          <%= fa_icon("minus-circle") %>
-        <% end %>
-        <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
-        <%= button_to "/force_ping/#{service.id}.js", method: :get, class: "btn btn-secondary btn-sm", remote: true do  %>
-          <%= fa_icon('play') %>
-        <% end %>
-        <button class="btn btn-info btn-sm" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></button>
-      </div>
-    </div>
+<div class="service-panel-widget row <%=class_of_border%>">
+  <div class="col d-flex flex-column justify-content-center service-info text-nowrap">
+    <span class="service-name">
+      <% unless Setting.group_services %>
+        <%=service.device %> <br>
+      <% end %>
+      <%= service %>
+    </span>
+    <hr>
+    <%=metrics_string(service)%> 
+  </div>
+  <div class="service-actions col-auto d-flex flex-column justify-content-center">
+    <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
+      <%= fa_icon("minus-circle") %>
+    <% end %>
+    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+    <%= button_to "/force_ping/#{service.id}.js", method: :get, class: "btn btn-secondary btn-sm", remote: true do  %>
+      <%= fa_icon('play') %>
+    <% end %>
+    <button class="btn btn-info btn-sm" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></button>
   </div>
 </div>
 

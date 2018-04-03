@@ -18,6 +18,7 @@ class MonitoredService < ActiveRecord::Base
     end
     
     validates :name, presence: {message: "Voce deve identificar este serviço"}
+    validates :name, length: {maximum: 14, message: "O nome do serviço deve ser menor que 14 caracteres"}
     validates :device, presence: {message: "Voce deve identificar o dispositivo que dispõe esse serviço"}
     #validates :description, presence: {message: "Voce deve fornecer uma descrição ao serviço"}
     validates :service_type, presence: {message: "Voce deve fornecer o tipo de serviço em questão"}
