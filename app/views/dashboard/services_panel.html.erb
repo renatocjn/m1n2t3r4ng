@@ -118,7 +118,7 @@
 
 <hr>
 <%# TODO find a way to remove devices in ungrouped mode %>
-<div id='service-container' class="d-flex justify-content-center flex-wrap">
+<div id='service-container' class="d-flex justify-content-start flex-wrap">
   <% if Setting.group_services %>
     <% @devices.each do |device| %>
       <%= render partial: "device", locals: {device: device}%>

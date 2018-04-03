@@ -12,7 +12,6 @@ class PingServiceJob < ActiveJob::Base
         ServiceNotifier.notify_service_event("down", monitored_service).deliver_later!
       end
       if Setting.send_telegram_notifications and monitored_service.up?
-        logger.debug "Send telegram down"
         TelegramSubscriber.all.each {|u| u.send_message(gen_message(:down, monitored_service))}
       end
       monitored_service.update!(status: :down, force_create: true) if monitored_service.up?
@@ -20,11 +19,9 @@ class PingServiceJob < ActiveJob::Base
       avg_delay = delaysum.fdiv(nPings)
       monitored_service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
       if Setting.send_email_notifications and monitored_service.down?
-        logger.debug "Send mail up"
         ServiceNotifier.notify_service_event("up", monitored_service).deliver_later!
       end
       if Setting.send_telegram_notifications and monitored_service.down?
-        logger.debug "Send telegram up"
         TelegramSubscriber.all.each {|u| u.send_message(gen_message(:up, monitored_service))}
       end
       monitored_service.update!(status: :up, force_create: true) if monitored_service.down?

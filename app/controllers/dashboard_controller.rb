@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     end
     
     begin
-      Setting.refresh_ratio = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
+      session[:refresh_rate] = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
     rescue ArgumentError
       error_messages << "Intervalo de atualização da página inválido"
     end
@@ -61,7 +61,6 @@ class DashboardController < ApplicationController
       StartPingingServicesJob.perform_now
     else
       service = MonitoredService.find_by_id(params[:id])
-      logger.debug service
       PingServiceJob.perform_now service unless service.nil?
     end
     render "refresh_panel"
@@ -88,7 +87,6 @@ class DashboardController < ApplicationController
     else
       @monitored_services = MonitoredService.all.includes(:device)
     end
-    logger.debug @monitored_services
     @status_counter = MonitoredService.get_count_of_situations
     @settings = Setting
     @monitored_service ||= MonitoredService.new
