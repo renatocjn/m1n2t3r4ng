@@ -1,0 +1,9 @@
+export RAILS_ENV=<Rails enviroment>
+export MYSQL_USER=<Insert DB user>
+export MYSQL_PASSWD=<Insert DB password>
+export SECRET_KEY_BASE=<Insert rails secret output>
+export SERVER_HOSTNAME=<Insert URL for application>
+export TELEGRAM_BOT_TOKEN=<Insert bot token>
+export TELEGRAM_BOT_USERNAME=<Insert bot username>
+export CERT=<Insert web server ssl public key path>
+export RAILS_SERVE_STATIC_FILES='true'

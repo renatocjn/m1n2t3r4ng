@@ -46,3 +46,5 @@ bower.json
 
 /public/assets
 Gemfile.lock
+
+env_vars

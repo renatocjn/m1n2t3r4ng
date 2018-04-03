@@ -8,6 +8,6 @@ class ServiceNotifier < ApplicationMailer
   def notify_service_event status, service
     @service = service
     @status_str = status == "up" ? "online" : "offline" 
-    mail to: "renatoneto@casebras.com.br", subject: "[Monitoramento] Serviço #{@service} do dispositivo #{@service.device} ficou #{@status_str}"
+    mail to: Setting.notification_email, subject: "[Monitoramento] Serviço #{@service} do dispositivo #{@service.device} ficou #{@status_str}"
   end
 end

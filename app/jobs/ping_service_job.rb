@@ -9,8 +9,7 @@ class PingServiceJob < ActiveJob::Base
     if delaysum == nil
       monitored_service.monitored_service_logs.create!(delivery_ratio: del_ratio)
       if Setting.send_email_notifications and monitored_service.up?
-        logger.debug "Send mail down"
-        ServiceNotifier.notify_service_event("down", monitored_service).deliver_later
+        ServiceNotifier.notify_service_event("down", monitored_service).deliver_later!
       end
       if Setting.send_telegram_notifications and monitored_service.up?
         logger.debug "Send telegram down"
@@ -22,7 +21,7 @@ class PingServiceJob < ActiveJob::Base
       monitored_service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
       if Setting.send_email_notifications and monitored_service.down?
         logger.debug "Send mail up"
-        ServiceNotifier.notify_service_event("up", monitored_service).deliver_later
+        ServiceNotifier.notify_service_event("up", monitored_service).deliver_later!
       end
       if Setting.send_telegram_notifications and monitored_service.down?
         logger.debug "Send telegram up"
