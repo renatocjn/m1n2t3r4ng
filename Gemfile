@@ -81,3 +81,6 @@ gem "mysql2", '~> 0.3.18'
 
 # Added at 2018-03-29 11:49:25 +0000 by ubuntu:
 gem "telegram-bot", "~> 0.13.0"
+
+# Added at 2018-04-03 13:35:14 +0000 by ubuntu:
+gem "delayed_job_active_record", "~> 4.1"

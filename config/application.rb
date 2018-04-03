@@ -24,6 +24,7 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     
     #config.active_job.queue_adapter = :async
+    config.active_job.queue_adapter = :delayed_job
     
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {

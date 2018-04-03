@@ -63,7 +63,7 @@ class DashboardController < ApplicationController
       service = MonitoredService.find_by_id(params[:id])
       PingServiceJob.perform_now service unless service.nil?
     end
-    render "refresh_panel", format: :js
+    render "refresh_panel"
   end
   
   private
