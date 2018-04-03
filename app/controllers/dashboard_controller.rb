@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     end
     
     begin
-      Setting.refresh_ratio = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
+      session[:refresh_rate] = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
     rescue ArgumentError
       error_messages << "Intervalo de atualização da página inválido"
     end
