@@ -61,6 +61,7 @@ class DashboardController < ApplicationController
       StartPingingServicesJob.perform_now
     else
       service = MonitoredService.find_by_id(params[:id])
+      logger.debug service
       PingServiceJob.perform_now service unless service.nil?
     end
     render "refresh_panel", format: :js
