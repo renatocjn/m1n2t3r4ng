@@ -4,7 +4,7 @@
     width: 13rem;
     /*padding: 1rem 15.5rem;*/
     margin: 0.1rem;
-    border: .1rem gray solid;
+    border: 2px white solid;
     border-radius: .35rem;
 }
 
@@ -106,14 +106,16 @@
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    color: white;
 }
-.navbar-brand .text-muted {
+.navbar-brand .text-sm {
     font-size: 60%;
     font-weight: normal;
 }
 
 #main-navbar .nav-link {
     white-space: nowrap;
+    color: white;
 }
 
 .card-body {
