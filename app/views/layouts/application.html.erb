@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
 </head>
-<body>
+<body class="bg-secondary">
 
 <div id="main-container" class="container-responsive m-3 p-3">
   
@@ -32,8 +32,8 @@
   <div class="contents"> <%= yield %> </div>
   
   <hr>
-  <footer class="bg-faded text-right text-muted">
-    MST <span class="d-none d-md-inline"> Monitoramento de Serviços de Tecnologia </span> &copy; 2018 <span class="d-none d-sm-inline"> | contato: </span> helpdesk@casebras.com.br
+  <footer class="bg-faded text-right text-white">
+    MST <span class="d-none d-md-inline"> - Monitoramento de Serviços de Tecnologia </span> &copy; 2018 <span class="d-none d-sm-inline"> | contato: </span> helpdesk@casebras.com.br
   </footer>
   
   <script defer src="<%= asset_path "font-awesome.js" %>"></script>

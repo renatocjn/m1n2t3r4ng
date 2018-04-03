@@ -106,14 +106,16 @@
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    color: white;
 }
-.navbar-brand .text-muted {
+.navbar-brand .text-sm {
     font-size: 60%;
     font-weight: normal;
 }
 
 #main-navbar .nav-link {
     white-space: nowrap;
+    color: white;
 }
 
 .card-body {
