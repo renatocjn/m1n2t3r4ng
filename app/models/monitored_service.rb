@@ -97,9 +97,7 @@ class MonitoredService < ActiveRecord::Base
     end
     
     def warning?
-        logger.debug self.inspect
-        logger.debug self.device.inspect
-        logger.debug latest_log.inspect
+        #FIXME fix this bullshit
         self.down? or latest_log.delay >= Setting.warning_delay
     end
     

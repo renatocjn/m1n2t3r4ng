@@ -64,7 +64,7 @@ class DashboardController < ApplicationController
       logger.debug service
       PingServiceJob.perform_now service unless service.nil?
     end
-    render "refresh_panel", format: :js
+    render "refresh_panel"
   end
   
   private
