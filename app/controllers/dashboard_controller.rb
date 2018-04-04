@@ -63,7 +63,7 @@ class DashboardController < ApplicationController
       service = MonitoredService.find_by_id(params[:id])
       PingServiceJob.perform_now service unless service.nil?
     end
-    setup_panel_variables #needs to be here to get updated values after ping
+    setup_panel_variables # Needs to be here to get updated values after ping
     render "refresh_panel"
   end
   

@@ -92,6 +92,14 @@
     <% refresh_intervals = {"30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
     <% warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
     
+    <button id="mute-audio-bttn" class="btn btn-light text-success"  data-toggle="tooltip" title="Notificações ativadas" data-placement="bottom">
+      <i class="fas fa-bell"></i>
+    </button>
+    
+    <button id="unmute-audio-bttn" class="btn btn-light text-danger" data-toggle="tooltip" title="Notificações desativadas" data-placement="bottom">
+      <i class="fas fa-bell-slash"></i>
+    </button>
+    
     <%= button_to "/refresh_panel.js", remote: true, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success ", method: :get do %>
       <%= fa_icon "sync-alt" %>
       <span class="d-none d-md-inline">Atualizar</span>
@@ -130,7 +138,7 @@
   <% end %>
 </div>
 
-<%= audio_tag "error.wav", id:"error_audio" %>
+<%= audio_tag "down-service.wav", id:"error_audio" %>
 
 <script>
   <%= render "update_refresh_delay.js" %>

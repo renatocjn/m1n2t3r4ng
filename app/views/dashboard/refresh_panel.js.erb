@@ -16,6 +16,8 @@ $('#service-container').append("<%= j render "dashboard/monitored_service", serv
 <% end %>
 
 organize_service_panel_widgets();
+play_sound_if_enabled_and_needed();
+
 $('[data-toggle="tooltip"]').tooltip();
 $('[data-toggle="popover"]').popover();
 $('.device-panel-widget').fadeIn(1000);
