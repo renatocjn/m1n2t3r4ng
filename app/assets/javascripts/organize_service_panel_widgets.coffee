@@ -20,8 +20,6 @@ window.organize_service_panel_widgets = ->
         else
             $(this).parents('.device-services-container').prepend(this)
     
-    play_sound_if_enabled_and_needed()
-    
 $(document).on "turbolinks:load", () ->
     organize_service_panel_widgets()
     $('.device-panel-widget').fadeIn(1000)
