@@ -55,10 +55,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     else
       if Setting.private_subscription_key == message
         if chat['type'] == 'group'
-          name = chat['title']
+          name = chat['title'].to_s
         else
-          name = from["first_name"] + " " + from["last_name"]
+          name = from["first_name"].to_s + " " + from["last_name"].to_s
         end
+	name.strip!
         if TelegramSubscriber.create name: name, telegram_id: chat["id"]
           respond_with :message, text: "Usuário registrado"
         else
