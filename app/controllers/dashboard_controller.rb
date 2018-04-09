@@ -26,6 +26,7 @@ class DashboardController < ApplicationController
       error_messages << "Duração de latência inválida"
     end
     
+    Setting.send_telegram_notifications = (settings_params[:should_notify_warning_status].strip == "true") unless settings_params[:should_notify_warning_status].blank?
     Setting.send_telegram_notifications = (settings_params[:send_telegram_notifications].strip == "true") unless settings_params[:send_telegram_notifications].blank?
     Setting.send_email_notifications = (settings_params[:send_email_notifications].strip == "true") unless settings_params[:send_email_notifications].blank?
     Setting.group_services = (settings_params[:group_services].strip == "true") unless settings_params[:group_services].blank?
@@ -78,7 +79,8 @@ class DashboardController < ApplicationController
                                     :send_email_notifications, 
                                     :user_login, :user_passwd, 
                                     :notification_email,
-                                    :group_services
+                                    :group_services,
+                                    :should_notify_warning_status
                                     )
   end
   

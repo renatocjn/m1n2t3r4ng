@@ -18,28 +18,29 @@
         } 
       %>
       <div class="row">
-        <div class="col-md"><%= f.input :max_log_age, label: "Tempo máximo de histórico", as: :select, collection: log_ages, include_blank: false %></div>
-        <div class="col-md"><%= f.input :n_pings, label: "Número de pings por medição", as: :integer, input_html: {min: 1, max: 30} %></div>
+        <div class="col-lg"><%= f.input :max_log_age, label: "Tempo máximo de histórico", as: :select, collection: log_ages, include_blank: false %></div>
+        <div class="col-lg"><%= f.input :n_pings, label: "Número de pings por medição", as: :integer, input_html: {min: 1, max: 30} %></div>
       </div>
       
       <div class="row">
-        <div class="col-md"><%= f.input :user_login, label: "Nome de usuário de acesso" %></div>
-        <div class="col-md"><%= f.input :user_passwd, label: "Senha de acesso ao painel" %></div>
+        <div class="col-lg"><%= f.input :user_login, label: "Nome de usuário de acesso" %></div>
+        <div class="col-lg"><%= f.input :user_passwd, label: "Senha de acesso ao painel" %></div>
       </div>
       
       <div class="row">
-        <div class="col-md"><%= f.input :notification_email, label: "Email para notificações" %></div>
-        <div class="col-md"><%= f.input :group_services, label: "Agrupar serviços?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+        <div class="col-lg"><%= f.input :notification_email, label: "Email para notificações" %></div>
+        <div class="col-lg"><%= f.input :group_services, label: "Agrupar serviços?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
       </div>
       
       <div class="row">
-        <div class="col-md"><%= f.input :send_email_notifications, label: "Notificar eventos por email?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
-        <div class="col-md"><%= f.input :send_telegram_notifications, label: "Notificar eventos por telegram?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+        <div class="col-lg"><%= f.input :send_email_notifications, label: "Notificar por email?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+        <div class="col-lg"><%= f.input :send_telegram_notifications, label: "Notificar por telegram?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
+        <div class="col-lg"><%= f.input :should_notify_warning_status, label: "Notificar alta latência?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>
       </div>
       
       <div class="row">
-        <div class="col-md">
-          <a class="telegram_bot_username text-info" href="https://telegram.me/notificacoes_mst_casebras_bot"> <i class="fab fa-telegram"></i> Bot de notificações telegram </a>
+        <div class="col-lg">
+          <a class="telegram_bot_username text-info" href="https://telegram.me/<%=Rails.application.secrets.telegram['bot']['username']%>"> <i class="fab fa-telegram"></i> Bot telegram </a>
         </div>
           
         <div class="col-md">
