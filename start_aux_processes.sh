@@ -5,7 +5,7 @@ bundle exec crono start
 echo
 
 echo "Starting Telegram poller..."
-nohup bundle exec rake telegram:bot:poller &> log/telegram_poller.log&
+nohup bundle exec rake telegram:bot:poller &>> log/telegram_poller.log&
 echo "Poller started (pid $!)"
 echo
 
