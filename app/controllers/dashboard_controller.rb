@@ -7,33 +7,41 @@ class DashboardController < ApplicationController
   
   def update_settings
     error_messages = []
+    Rails.cache.clear
     
     begin
-      Setting.max_log_age = Integer(settings_params[:max_log_age].strip) unless settings_params[:max_log_age].blank?
+      Setting.max_log_age = Integer(settings_params[:max_log_age]) unless settings_params[:max_log_age].blank?
     rescue ArgumentError
       error_messages << "Tempo máximo de histórico inválido"
     end
     
     begin
-      session[:refresh_rate] = Integer(settings_params[:refresh_ratio].strip) unless settings_params[:refresh_ratio].blank?
+      Setting.max_log_age = Integer(settings_params[:stabilization_delay]) unless settings_params[:stabilization_delay].blank?
+    rescue ArgumentError
+      error_messages << "Intervalo de estabilização inválido"
+    end
+    
+    begin
+      session[:refresh_rate] = Integer(settings_params[:refresh_ratio]) unless settings_params[:refresh_ratio].blank?
     rescue ArgumentError
       error_messages << "Intervalo de atualização da página inválido"
     end
     
     begin
-      Setting.warning_delay = Float(settings_params[:warning_delay].strip) unless settings_params[:warning_delay].blank?
+      Setting.warning_delay = Float(settings_params[:warning_delay]) unless settings_params[:warning_delay].blank?
     rescue ArgumentError
       error_messages << "Duração de latência inválida"
     end
     
-    Setting.send_telegram_notifications = (settings_params[:should_notify_warning_status].strip == "true") unless settings_params[:should_notify_warning_status].blank?
-    Setting.send_telegram_notifications = (settings_params[:send_telegram_notifications].strip == "true") unless settings_params[:send_telegram_notifications].blank?
-    Setting.send_email_notifications = (settings_params[:send_email_notifications].strip == "true") unless settings_params[:send_email_notifications].blank?
-    Setting.group_services = (settings_params[:group_services].strip == "true") unless settings_params[:group_services].blank?
-    Setting.user_login = settings_params[:user_login].strip unless settings_params[:user_login].blank?
-    Setting.user_passwd = settings_params[:user_passwd].strip unless settings_params[:user_passwd].blank?
-    Setting.notification_email = settings_params[:notification_email].strip unless settings_params[:notification_email].blank?
+    Setting.send_telegram_notifications = (settings_params[:should_notify_warning_status] == "true") unless settings_params[:should_notify_warning_status].blank?
+    Setting.send_telegram_notifications = (settings_params[:send_telegram_notifications] == "true") unless settings_params[:send_telegram_notifications].blank?
+    Setting.send_email_notifications = (settings_params[:send_email_notifications] == "true") unless settings_params[:send_email_notifications].blank?
+    Setting.group_services = (settings_params[:group_services] == "true") unless settings_params[:group_services].blank?
+    Setting.user_login = settings_params[:user_login] unless settings_params[:user_login].blank?
+    Setting.user_passwd = settings_params[:user_passwd] unless settings_params[:user_passwd].blank?
+    Setting.notification_email = settings_params[:notification_email] unless settings_params[:notification_email].blank?
     
+    Rails.cache.clear
     respond_to do |format|
       if error_messages.empty?
         format.html { redirect_to :root }
@@ -80,7 +88,8 @@ class DashboardController < ApplicationController
                                     :user_login, :user_passwd, 
                                     :notification_email,
                                     :group_services,
-                                    :should_notify_warning_status
+                                    :should_notify_warning_status,
+                                    :stabilization_delay
                                     )
   end
   

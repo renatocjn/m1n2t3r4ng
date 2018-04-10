@@ -8,19 +8,14 @@ class PingServiceJob < ActiveJob::Base
     del_ratio = pings.length.fdiv(nPings)
     if delaysum == nil
       service.monitored_service_logs.create!(delivery_ratio: del_ratio)
-      if not service.down?
-        enqueue_notifications("down", service)
-        service.update!(status: :down, force_create: true)
-      end
+      update_service_and_notify_if_state_changed_past_stabilization_delay :down, service
     else
       avg_delay = delaysum.fdiv(nPings)
       service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
-      if avg_delay >= Setting.warning_delay and not service.warning?
-        enqueue_notifications("warning", service)
-        service.update!(status: :warning, force_create: true)
-      elsif not service.up?
-        enqueue_notifications("up", service)
-        service.update!(status: :up, force_create: true)
+      if avg_delay >= Setting.warning_delay
+        update_service_and_notify_if_state_changed_past_stabilization_delay :warning, service
+      else
+        update_service_and_notify_if_state_changed_past_stabilization_delay :up, service
       end
     end
   end
@@ -31,6 +26,26 @@ class PingServiceJob < ActiveJob::Base
     unless status == "warning" and not Setting.should_notify_warning_status 
       NotifyTelegramSubscribersJob.perform_later status, service if Setting.send_telegram_notifications
       ServiceNotifier.notify_service_event(status, service).deliver_later! if Setting.send_email_notifications
+    end
+  end
+  
+  def update_service_and_notify_if_state_changed_past_stabilization_delay new_status, service
+    status = new_status.is_a?(Symbol) ? new_status : new_status.to_sym
+    curr_time = Time.now
+    if service.status == status
+      logger.debug "Service #{service.id} | Same status"
+      service.update!(new_status_time: nil, force_create: true) unless service.new_status_time.blank?
+    else
+      if service.new_status_time.nil?
+        logger.debug "Service #{service.id} | New status"
+        service.update!(new_status_time: (curr_time + Setting.stabilization_delay.seconds), force_create: true)
+      elsif curr_time >= service.new_status_time #DateTime differences are given in days, hence the multiplication
+        logger.debug "Service #{service.id} | Status changed #{curr_time} #{service.new_status_time.in_time_zone}"
+        enqueue_notifications(new_status.to_s, service)
+        service.update!(status: new_status, new_status_time: nil, force_create: true)
+      else
+        logger.debug "Service #{service.id} | Status to be changed. Missing: #{curr_time - service.new_status_time}"
+      end
     end
   end
 end
