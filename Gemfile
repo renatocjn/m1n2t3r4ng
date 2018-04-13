@@ -84,3 +84,6 @@ gem "telegram-bot", "~> 0.13.0"
 
 # Added at 2018-04-03 13:35:14 +0000 by ubuntu:
 gem "delayed_job_active_record", "~> 4.1"
+
+# Added at 2018-04-13 08:48:38 -0300 by user:
+gem "seed_dump", "~> 3.2"
