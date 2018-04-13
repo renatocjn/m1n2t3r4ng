@@ -33,18 +33,13 @@ class PingServiceJob < ActiveJob::Base
     status = new_status.is_a?(Symbol) ? new_status : new_status.to_sym
     curr_time = Time.now
     if service.status == status
-      logger.debug "Service #{service.id} | Same status"
       service.update!(new_status_time: nil, force_create: true) unless service.new_status_time.blank?
     else
       if service.new_status_time.nil?
-        logger.debug "Service #{service.id} | New status"
         service.update!(new_status_time: (curr_time + Setting.stabilization_delay.seconds), force_create: true)
       elsif curr_time >= service.new_status_time #DateTime differences are given in days, hence the multiplication
-        logger.debug "Service #{service.id} | Status changed #{curr_time} #{service.new_status_time.in_time_zone}"
         enqueue_notifications(new_status.to_s, service)
         service.update!(status: new_status, new_status_time: nil, force_create: true)
-      else
-        logger.debug "Service #{service.id} | Status to be changed. Missing: #{curr_time - service.new_status_time}"
       end
     end
   end

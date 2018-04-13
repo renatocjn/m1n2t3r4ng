@@ -1,35 +1,8 @@
-
+<%# FIXME not updating values after save %>
 <%= simple_form_for @settings, url: root_path do |f| %>
     <%= f.error_notification %>
   
     <div class="form-inputs">
-      <% 
-        log_ages = {
-          "Não guardar logs" => 1.minute.to_i,
-          "1 semana"  => 1.week.to_i, 
-          "2 semanas" => 2.weeks.to_i, 
-          "1 mês"     => 1.month.to_i, 
-          "3 meses"   => 3.months.to_i, 
-          "6 meses"   => 6.months.to_i, 
-          "1 ano"     => 1.year.to_i, 
-          "2 anos"    => 2.years.to_i, 
-          "5 anos"    => 5.years.to_i, 
-          "10 anos"   => 10.years.to_i
-        } 
-        
-        stabilization_delays = {
-          " 1 minuto"  =>  1.minute.to_i,
-          " 2 minutos" =>  2.minutes.to_i,
-          " 3 minutos" =>  3.minutes.to_i,
-          " 4 minutos" =>  4.minutes.to_i,
-          " 5 minutos" =>  5.minutes.to_i,
-          " 6 minutos" =>  6.minutes.to_i,
-          " 7 minutos" =>  7.minutes.to_i,
-          " 8 minutos" =>  8.minutes.to_i,
-          " 9 minutos" =>  9.minutes.to_i,
-          "10 minutos" => 10.minutes.to_i
-        }
-      %>
       <div class="row">
         <div class="col-lg"><%= f.input :max_log_age, label: "Tempo máximo de histórico", as: :select, collection: log_ages, include_blank: false %></div>
         <div class="col-lg"><%= f.input :stabilization_delay, label: "Atraso de estabilização", as: :select, collection: stabilization_delays, include_blank: false %></div>
@@ -57,14 +30,16 @@
           <a class="telegram_bot_username text-info" href="https://telegram.me/<%=Rails.application.secrets.telegram['bot']['username']%>"> <i class="fab fa-telegram"></i> Bot telegram </a>
         </div>
           
-        <div class="col-md">
+        <div class="col-lg">
           <label><%=fa_icon :key, text: "Chave secreta do telegram"%></label>
           <span class="telegram_secret_key alert-danger"><%=Setting.private_subscription_key%></span>
         </div>
       </div>
     </div>
     
-    <div class="form-actions">
-      <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+    <div class="row">
+      <div class="form-actions offset-lg-2 col-lg-8">
+        <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+      </div>
     </div>
 <% end %>

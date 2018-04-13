@@ -1,16 +1,15 @@
 
 <% 
-  # FIXME this is wrong for new services
   if service.down?
-    class_of_border = "service-down"
+    service_class = "service-down"
   elsif service.warning?
-    class_of_border = "service-warning"
+    service_class = "service-warning"
   else
-    class_of_border = "service-up"
+    service_class = "service-up"
   end
 %>
 
-<div class="service-panel-widget row <%=class_of_border%>">
+<div class="service-panel-widget row <%=service_class%>">
   <div class="col d-flex flex-column justify-content-center service-info text-nowrap">
     <span class="service-name">
       <% unless Setting.group_services %>
