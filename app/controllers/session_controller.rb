@@ -11,11 +11,11 @@ class SessionController < ApplicationController
       session[:refresh_rate] ||= Setting.refresh_ratio
       redirect_to :root
     elsif login_params[:username] != Setting.user_login and login_params[:password] != Setting.user_passwd
-      redirect_to login_path, Alert: "Usuário e senha incorretos"
+      redirect_to login_path, alert: "Usuário e senha incorretos"
     elsif login_params[:username] != Setting.user_login
-      redirect_to login_path, Alert: "Usuário incorreto"
+      redirect_to login_path, alert: "Usuário incorreto"
     elsif login_params[:password] != Setting.user_passwd
-      redirect_to login_path, Alert: "Senha incorreta"
+      redirect_to login_path, alert: "Senha incorreta"
     end
   end
   

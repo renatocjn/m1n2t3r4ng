@@ -138,7 +138,9 @@
   <% end %>
 </div>
 
-<%= audio_tag "down-service.wav", id:"error_audio" %>
+<%# TODO Test these audio events%>
+<%= audio_tag "down-service.wav", id:"down_service_audio" %>
+<%= audio_tag "up-service.wav", id:"up_service_audio" %>
 
 <script>
   <%= render "update_refresh_delay.js" %>

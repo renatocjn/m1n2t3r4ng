@@ -2,7 +2,7 @@ require 'net/ping'
 
 class MonitoredService < ActiveRecord::Base
     enum service_type: [ :icmp, :tcp, :udp ]
-    enum status: [:up, :down]
+    enum status: [ :up, :down, :warning ]
     belongs_to :device, inverse_of: :monitored_services
     has_many :monitored_service_logs, dependent: :destroy
     attr_accessor :force_create
@@ -97,10 +97,9 @@ class MonitoredService < ActiveRecord::Base
         self.monitored_service_logs.order(created_at: :desc).first
     end
     
-    def warning?
-        #FIXME fix this bullshit
-        self.down? or latest_log.delay >= Setting.warning_delay
-    end
+    #def warning?
+    #    self.down? or latest_log.delay >= Setting.warning_delay
+    #end
     
     def MonitoredService.get_count_of_situations 
         counter = {warning: 0, down: 0, up: 0}
