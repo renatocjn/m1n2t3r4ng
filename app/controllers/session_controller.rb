@@ -8,7 +8,7 @@ class SessionController < ApplicationController
   def create
     if login_params[:username] == Setting.user_login and login_params[:password] == Setting.user_passwd
       session[:user_authorized] = true
-      session[:refresh_rate] ||= Setting.refresh_rate
+      session[:refresh_rate] ||= Setting.refresh_ratio
       redirect_to :root
     elsif login_params[:username] != Setting.user_login and login_params[:password] != Setting.user_passwd
       redirect_to login_path, Alert: "Usuário e senha incorretos"
