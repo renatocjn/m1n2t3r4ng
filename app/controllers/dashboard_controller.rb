@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     end
     
     begin
-      Setting.max_log_age = Integer(settings_params[:stabilization_delay]) unless settings_params[:stabilization_delay].blank?
+      Setting.stabilization_delay = Integer(settings_params[:stabilization_delay]) unless settings_params[:stabilization_delay].blank?
     rescue ArgumentError
       error_messages << "Intervalo de estabilização inválido"
     end
@@ -29,10 +29,10 @@ class DashboardController < ApplicationController
     begin
       Setting.warning_delay = Float(settings_params[:warning_delay]) unless settings_params[:warning_delay].blank?
     rescue ArgumentError
-      error_messages << "Duração de latência inválida"
+      error_messages << "Valor inválido para o limiar de alta latência"
     end
     
-    Setting.send_telegram_notifications = (settings_params[:should_notify_warning_status] == "true") unless settings_params[:should_notify_warning_status].blank?
+    Setting.should_notify_warning_status = (settings_params[:should_notify_warning_status] == "true") unless settings_params[:should_notify_warning_status].blank?
     Setting.send_telegram_notifications = (settings_params[:send_telegram_notifications] == "true") unless settings_params[:send_telegram_notifications].blank?
     Setting.send_email_notifications = (settings_params[:send_email_notifications] == "true") unless settings_params[:send_email_notifications].blank?
     Setting.group_services = (settings_params[:group_services] == "true") unless settings_params[:group_services].blank?
