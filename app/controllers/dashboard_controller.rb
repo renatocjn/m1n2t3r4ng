@@ -7,7 +7,6 @@ class DashboardController < ApplicationController
   
   def update_settings
     error_messages = []
-    Rails.cache.clear
     
     begin
       Setting.max_log_age = Integer(settings_params[:max_log_age]) unless settings_params[:max_log_age].blank?
@@ -41,7 +40,6 @@ class DashboardController < ApplicationController
     Setting.user_passwd = settings_params[:user_passwd] unless settings_params[:user_passwd].blank?
     Setting.notification_email = settings_params[:notification_email] unless settings_params[:notification_email].blank?
     
-    Rails.cache.clear
     respond_to do |format|
       if error_messages.empty?
         format.html { redirect_to :root }

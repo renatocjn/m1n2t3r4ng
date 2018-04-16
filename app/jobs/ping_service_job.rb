@@ -23,23 +23,23 @@ class PingServiceJob < ActiveJob::Base
   private
   
   def enqueue_notifications status, service
-    unless status == "warning" and not Setting.should_notify_warning_status 
+    unless status == :warning and not Setting.should_notify_warning_status 
+      status = status.to_s
       NotifyTelegramSubscribersJob.perform_later status, service if Setting.send_telegram_notifications
-      ServiceNotifier.notify_service_event(status, service).deliver_later! if Setting.send_email_notifications
+      ServiceNotifier.notify_service_event(status, service).deliver_later if Setting.send_email_notifications
     end
   end
   
-  def update_service_and_notify_if_state_changed_past_stabilization_delay new_status, service
-    status = new_status.is_a?(Symbol) ? new_status : new_status.to_sym
-    curr_time = Time.now
-    if service.status == status
-      service.update!(new_status_time: nil, force_create: true) unless service.new_status_time.blank?
+  def update_service_and_notify_if_state_changed_past_stabilization_delay status, service
+    if service.status == status.to_s
+      service.update!(new_status_time: nil, force_create: true) unless service.new_status_time.nil?
     else
+      curr_time = Time.now.in_time_zone
       if service.new_status_time.nil?
         service.update!(new_status_time: (curr_time + Setting.stabilization_delay.seconds), force_create: true)
-      elsif curr_time >= service.new_status_time #DateTime differences are given in days, hence the multiplication
-        enqueue_notifications(new_status.to_s, service)
-        service.update!(status: new_status, new_status_time: nil, force_create: true)
+      elsif curr_time >= service.new_status_time 
+        enqueue_notifications(status, service)
+        service.update!(status: status, new_status_time: nil, force_create: true)
       end
     end
   end

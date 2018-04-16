@@ -4,7 +4,7 @@ class MonitoredService < ActiveRecord::Base
     enum service_type: [ :icmp, :tcp, :udp ]
     enum status: [ :up, :down, :warning ]
     belongs_to :device, inverse_of: :monitored_services
-    has_many :monitored_service_logs, dependent: :destroy
+    has_many :monitored_service_logs, dependent: :delete_all
     attr_accessor :force_create
     delegate :hostname, to: :device
     
