@@ -6,7 +6,9 @@ echo
 
 echo "Starting Telegram poller..."
 nohup bundle exec rake telegram:bot:poller &>> log/telegram_poller.log&
-echo "Poller started (pid $!)"
+pid=$!
+echo "Poller started (pid $pid)"
+echo $pid > tmp/pids/poller.pid
 echo
 
 echo "Starting delayed job worker..."
