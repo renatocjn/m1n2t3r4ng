@@ -6,5 +6,4 @@ export SERVER_HOSTNAME=<Insert URL for application>
 export TELEGRAM_BOT_TOKEN=<Insert bot token>
 export TELEGRAM_BOT_USERNAME=<Insert bot username>
 export CERT=<Insert web server ssl public key path>
-export SERVER_HOSTNAME=<Server IP or DNS name>
 export RAILS_SERVE_STATIC_FILES='true'
