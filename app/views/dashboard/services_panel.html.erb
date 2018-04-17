@@ -90,13 +90,13 @@
   
   <div id="panel-commands" class="d-sm-inline-flex justify-content-end flex-wrap d-none ">
     <% refresh_intervals = {"30 segundos" => 30.seconds.to_i, "1 minuto" => 1.minute.to_i, "10 minutos" => 10.minutes.to_i, "1 hora" => 1.hour.to_i} %>
-    <% warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
+    <%# warning_delays = {"100ms" => 0.1, "200ms" => 0.2, "500ms" => 0.5, "1s" => 1} %>
     
-    <button id="mute-audio-bttn" class="btn btn-light text-success"  data-toggle="tooltip" title="Notificações ativadas" data-placement="bottom">
+    <button id="mute-audio-bttn" class="btn btn-light text-success"  data-toggle="tooltip" title="Notificações sonoras ativadas" data-placement="bottom">
       <i class="fas fa-bell"></i>
     </button>
     
-    <button id="unmute-audio-bttn" class="btn btn-light text-danger" data-toggle="tooltip" title="Notificações desativadas" data-placement="bottom">
+    <button id="unmute-audio-bttn" class="btn btn-light text-danger" data-toggle="tooltip" title="Notificações sonoras desativadas" data-placement="bottom">
       <i class="fas fa-bell-slash"></i>
     </button>
     
@@ -110,17 +110,21 @@
       <span class="d-none d-md-inline">Forçar medição</span>
     <% end %>
     
-    <div class="d-inline">
-      <%= simple_form_for Setting, url: root_path, remote: true, wrapper: :inline_form, html: { class: 'form-inline d-inline' } do |f| %>
-        <%= f.input :refresh_ratio, as: :select, collection: refresh_intervals, include_blank: false, label: false, input_html: {:onchange=>'$(this.form).submit();', title: "Tempo entre atualizações da página", "data-toggle"=>"tooltip", "data-html"=>"true", "data-placement"=>"bottom"} %>
-      <% end %>
-    </div>
+    <!--<%#= simple_form_for Setting, url: root_path, remote: true, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>-->
+      <%#= f.input :warning_delay, as: :select, collection: warning_delays, include_blank: false, label: false, input_html: {:onchange=>'$(this.form).submit();', title: "Intervalo de tempo considerado de alta latência", "data-toggle"=>"tooltip", "data-html"=>"true", "data-placement"=>"bottom"} %>
+    <!--  <div class="input-group">-->
+    <!--    <%#= f.input :warning_delay, as: :integer, label: false, wrapper: false, input_html: {value: (Setting.warning_delay*100.0),id: "warning_delay_input", title: "Intervalo de tempo considerado de alta latência (Milissegundos)", "data-toggle"=>"tooltip", "data-html"=>"true", "data-placement"=>"bottom", "min" => "50", "step" => "10"} %>-->
+    <!--    <div class="input-group-append">-->
+    <!--      <%#= button_tag(type: 'submit', class: "btn btn-primary btn-sm ml-0") do %>-->
+    <!--        <%#= fa_icon(:save) %>-->
+    <!--      <%# end %>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--<%# end %>-->
     
-    <div class="d-inline">
-      <%= simple_form_for Setting, url: root_path, remote: true, wrapper: :inline_form, html: { class: 'form-inline d-inline' } do |f| %>
-        <%= f.input :warning_delay, as: :select, collection: warning_delays, include_blank: false, label: false, input_html: {:onchange=>'$(this.form).submit();', title: "Intervalo de tempo considerado de alta latência", "data-toggle"=>"tooltip", "data-html"=>"true", "data-placement"=>"bottom"} %>
-      <% end %>
-    </div>
+    <%= simple_form_for Setting, url: root_path, remote: true, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+      <%= f.input :refresh_ratio, as: :select, collection: refresh_intervals, include_blank: false, label: false, input_html: {:onchange=>'$(this.form).submit();', title: "Tempo entre atualizações da página", "data-toggle"=>"tooltip", "data-html"=>"true", "data-placement"=>"bottom"} %>
+    <% end %>
   </div>
 </div>
 
@@ -138,7 +142,6 @@
   <% end %>
 </div>
 
-<%# TODO Test these audio events%>
 <%= audio_tag "down-service.wav", id:"down_service_audio" %>
 <%= audio_tag "up-service.wav", id:"up_service_audio" %>
 

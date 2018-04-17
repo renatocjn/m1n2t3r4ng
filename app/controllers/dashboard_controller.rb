@@ -27,7 +27,7 @@ class DashboardController < ApplicationController
     end
     
     begin
-      Setting.warning_delay = Float(settings_params[:warning_delay]) unless settings_params[:warning_delay].blank?
+      Setting.warning_delay = Float(settings_params[:warning_delay])*0.001 unless settings_params[:warning_delay].blank?
     rescue ArgumentError
       error_messages << "Valor inválido para o limiar de alta latência"
     end

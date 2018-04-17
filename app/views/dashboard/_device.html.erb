@@ -3,11 +3,11 @@
   <div class="card-body">
     <div class="row">
       <div class="col"> 
-        <h5 class="card-title d-inline text-white" data-toggle="popover" data-placement="right" data-content="<%=device.hostname%>"><%=device.name%></h5> 
+        <h5 class="card-title d-inline text-white" tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="<%=device.hostname%>"><%=device.name%></h5> 
       </div>
       <div class="col-auto">
         <% if device.description.present? %>
-          <button class="btn btn-info btn-sm cursor-help d-inline" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></button>
+          <a class="btn btn-info btn-sm cursor-help d-inline" tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></a>
         <% end %>
         <button class="btn btn-light btn-sm d-inline" data-toggle="modal" data-target="#editDeviceModal<%=device.id%>"><%= fa_icon("pencil-alt") %></button>
         

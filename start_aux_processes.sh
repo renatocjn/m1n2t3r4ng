@@ -10,5 +10,5 @@ echo "Poller started (pid $!)"
 echo
 
 echo "Starting delayed job worker..."
-bundle exec bin/delayed_job start
+bundle exec bin/delayed_job --pool=*:5 start
 echo

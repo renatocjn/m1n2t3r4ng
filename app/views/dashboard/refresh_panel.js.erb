@@ -2,17 +2,19 @@
 
 $('.device-panel-widget').fadeOut(1000);
 $('#service-container').empty();
+
 $('.status-counter-down .counter-value').text('<%=@status_counter[:down]%>');
 $('.status-counter-up .counter-value').text('<%=@status_counter[:up]%>');
 $('.status-counter-warning .counter-value').text('<%=@status_counter[:warning]%>');
+
 <% if Setting.group_services %>
-<% @devices.each do |device| %>
-$('#service-container').append("<%= j render "dashboard/device", device: device %>");
-<% end %>
+    <% @devices.each do |device| %>
+        $('#service-container').append("<%= j render "dashboard/device", device: device %>");
+    <% end %>
 <% else %>
-<% @monitored_services.each do |service| %>
-$('#service-container').append("<%= j render "dashboard/monitored_service", service: service %>");
-<% end %>
+    <% @monitored_services.each do |service| %>
+        $('#service-container').append("<%= j render "dashboard/monitored_service", service: service %>");
+    <% end %>
 <% end %>
 
 organize_service_panel_widgets();

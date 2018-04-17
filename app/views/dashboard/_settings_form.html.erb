@@ -10,8 +10,9 @@
       </div>
       
       <div class="row">
-        <div class="col-lg"><%= f.input :user_login, label: "Nome de usuário de acesso" %></div>
-        <div class="col-lg"><%= f.input :user_passwd, label: "Senha de acesso ao painel" %></div>
+        <div class="col-lg"><%= f.input :user_login, label: "Usuário de acesso" %></div>
+        <div class="col-lg"><%= f.input :user_passwd, label: "Senha de acesso" %></div>
+        <div class="col-lg"><%= f.input :warning_delay, as: :integer, label: "Limiar de alta latência (ms)", input_html: {"value" => (Setting.warning_delay*1000.0), "min" => "50", "step" => "10"} %></div>
       </div>
       
       <div class="row">
@@ -27,12 +28,13 @@
       
       <div class="row">
         <div class="col-lg">
-          <a class="telegram_bot_username text-info" href="https://telegram.me/<%=Rails.application.secrets.telegram['bot']['username']%>"> <i class="fab fa-telegram"></i> Bot telegram </a>
+          <label><i class="fab fa-telegram"></i> Bot de notificações Telegram </label>
+          <a class="telegram_bot_username" href="https://telegram.me/<%=Rails.application.secrets.telegram['bot']['username']%>"><%=Rails.application.secrets.telegram['bot']['username']%></a>
         </div>
           
         <div class="col-lg">
           <label><%=fa_icon :key, text: "Chave secreta do telegram"%></label>
-          <span class="telegram_secret_key alert-danger"><%=Setting.private_subscription_key%></span>
+          <span class="telegram_secret_key"><%=Setting.private_subscription_key%></span>
         </div>
       </div>
     </div>

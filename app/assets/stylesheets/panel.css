@@ -138,6 +138,11 @@
 }
 
 .telegram_bot_username {
-    font-size: 150%;
-    padding: auto;
+    color: Teal;
+    background-color: #ccffff;
+}
+
+.telegram_secret_key {
+    background-color: LightCoral;
+    color: DarkRed;
 }
