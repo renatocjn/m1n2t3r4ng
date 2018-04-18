@@ -3,6 +3,6 @@ class TelegramSubscriber < ActiveRecord::Base
     validates :telegram_id, uniqueness: true
     
     def send_message txt
-        Telegram.bot.send_message chat_id: self.telegram_id, text: txt
+        Telegram.bot.send_message chat_id: self.telegram_id, text: txt, parse_mode: "HTML"
     end
 end
