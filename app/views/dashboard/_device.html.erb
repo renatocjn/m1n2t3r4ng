@@ -7,7 +7,7 @@
       </div>
       <div class="col-auto">
         <% if device.description.present? %>
-          <a class="btn btn-info btn-sm cursor-help d-inline" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></a>
+          <a class="btn btn-info btn-sm cursor-help d-inline text-white" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<%=simple_format device.description%>"><%=fa_icon("info-circle")%></a>
         <% end %>
         <button class="btn btn-light btn-sm d-inline" data-toggle="modal" data-target="#editDeviceModal<%=device.id%>"><%= fa_icon("pencil-alt") %></button>
         
