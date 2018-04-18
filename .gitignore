@@ -50,3 +50,8 @@ Gemfile.lock
 env_vars
 
 /db/*backup.rb
+
+# Deployment specific visual identity
+/app/assets/images/favicon.ico
+/app/assets/images/logo.png
+/app/assets/images/logo_e_sigla.png
