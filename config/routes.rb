@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   root "dashboard#services_panel"
   
   resources :devices, only: [:create, :update, :destroy]
-  resources :monitored_services, only: [:create, :update, :destroy]
+  resources :monitored_services, only: [:create, :update, :destroy] do
+    get 'history', on: :member, defaults: {format: :json}, constraints: {format: :json}
+    get 'force_ping', on: :member, defaults: {format: :js}, constraints: {format: :js}
+    get 'force_ping', on: :collection, defaults: {format: :js}, constraints: {format: :js}
+  end
   
   get '/signin' => 'session#new'
   post '/signin' => 'session#create'
@@ -13,9 +17,9 @@ Rails.application.routes.draw do
   get '/signoff' => 'session#destroy'
   get '/logoff' => 'session#destroy'
   
-  get '/refresh_panel' => "dashboard#refresh_panel"
-  get '/force_ping(/:id)' => "dashboard#force_ping"
-  post '/' => "dashboard#update_settings"
+  get '/refresh_panel' => "dashboard#refresh_panel", defaults: {format: :js}, constraints: {format: :js}
+  #get '/force_ping' => "dashboard#force_ping"
+  post '/' => "dashboard#update_settings", defaults: {format: :js}, constraints: {format: :js}
   
   telegram_webhook TelegramWebhooksController
 end

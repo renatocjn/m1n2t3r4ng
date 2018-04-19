@@ -1,0 +1,11 @@
+<div id="status-counters d-sm-block d-none">
+  <div class="status-counter status-counter-up" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços online">
+    <span class="counter-value"><%=@status_counter[:up]%></span>
+  </div>
+  <div class="status-counter status-counter-warning" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços com latência alta">
+    <span class="counter-value"><%=@status_counter[:warning]%></span>
+  </div>
+  <div class="status-counter status-counter-down" data-toggle="tooltip" data-html="true" data-placement="right" title="Número de serviços offline">
+    <span class="counter-value"><%=@status_counter[:down]%></span>
+  </div>
+</div>
