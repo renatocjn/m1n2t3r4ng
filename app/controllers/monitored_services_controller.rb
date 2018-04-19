@@ -1,4 +1,6 @@
 class MonitoredServicesController < ApplicationController
+  include SetupPanelVariablesConcern
+  
   before_action :set_monitored_service, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
 
@@ -65,6 +67,24 @@ class MonitoredServicesController < ApplicationController
       format.html { redirect_to :root }
       format.json { head :no_content }
     end
+  end
+  
+  # GET /monitored_services/1/force_ping
+  # GET /monitored_services/force_ping
+  def force_ping
+    if params[:id].blank?
+      StartPingingServicesJob.perform_now
+    else
+      service = MonitoredService.find_by_id(params[:id])
+      PingServiceJob.perform_now service unless service.nil?
+    end
+    setup_panel_variables # Needs to be here to get updated values after ping
+    render "dashboard/refresh_panel"
+  end
+  
+  # GET /monitored_services/1/history
+  def history
+
   end
 
   private

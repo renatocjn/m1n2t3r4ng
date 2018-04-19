@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  include SetupPanelVariablesConcern
+  
   before_filter :authorize
   before_filter :setup_panel_variables, except: [:update_settings, :force_ping]
   
@@ -63,17 +65,6 @@ class DashboardController < ApplicationController
     end
   end
   
-  def force_ping
-    if params[:id].blank?
-      StartPingingServicesJob.perform_now
-    else
-      service = MonitoredService.find_by_id(params[:id])
-      PingServiceJob.perform_now service unless service.nil?
-    end
-    setup_panel_variables # Needs to be here to get updated values after ping
-    render "refresh_panel"
-  end
-  
   private
   
   def settings_params
@@ -89,17 +80,5 @@ class DashboardController < ApplicationController
                                     :should_notify_warning_status,
                                     :stabilization_delay
                                     )
-  end
-  
-  def setup_panel_variables 
-    if Setting.group_services
-      @devices = Device.all.includes(:monitored_services)
-    else
-      @monitored_services = MonitoredService.all.includes(:device)
-    end
-    @status_counter = MonitoredService.get_count_of_situations
-    @settings = Setting
-    @monitored_service ||= MonitoredService.new
-    @device ||= Device.new
   end
 end

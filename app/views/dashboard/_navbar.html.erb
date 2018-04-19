@@ -1,0 +1,28 @@
+
+<nav id="main-navbar" class="navbar navbar-expand-md navbar-dark bg-dark rounded">
+  <span class="navbar-brand">
+      <%= image_tag "logo.png", height: "45px", width: "45px" %>
+      MST
+      <span class="d-none d-lg-inline text-sm text-white">Monitoramento de Serviços de Tecnologia</span>
+  </span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#newDeviceModal"><%= fa_icon(:server, text: "Novo dispositivo") %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#newServiceModal"><%= fa_icon(:eye, text: "Novo sensor") %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#settingsModal"><%= fa_icon(:cog, text: "Configurações") %></a>
+      </li>
+      <li class="nav-item">
+        <%= link_to fa_icon("sign-out-alt", text: "Sair"), logoff_path, class: "btn btn-danger" %>
+      </li>
+    </ul>
+  </div>
+</nav>
