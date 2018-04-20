@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   
   get '/refresh_panel' => "dashboard#refresh_panel", defaults: {format: :js}, constraints: {format: :js}
   #get '/force_ping' => "dashboard#force_ping"
-  post '/' => "dashboard#update_settings", defaults: {format: :js}, constraints: {format: :js}
+  post '/update_settings' => "dashboard#update_settings", defaults: {format: :js}, constraints: {format: :js}
+  post '/update_refresh_ratio' => "dashboard#update_refresh_ratio", defaults: {format: :js}, constraints: {format: :js}
   
   telegram_webhook TelegramWebhooksController
 end

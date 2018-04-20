@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   include SetupPanelVariablesConcern
   
   before_filter :authorize
-  before_filter :setup_panel_variables, except: [:update_settings, :force_ping]
+  before_filter :setup_panel_variables, except: [:update_settings, :force_ping, :update_refresh_ratio]
   
   def services_panel
   end
@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
     end
     
     begin
-      Setting.warning_delay = Float(settings_params[:warning_delay])*0.001 unless settings_params[:warning_delay].blank?
+      Setting.default_warning_delay = Float(settings_params[:default_warning_delay]) unless settings_params[:default_warning_delay].blank?
     rescue ArgumentError
       error_messages << "Valor inválido para o limiar de alta latência"
     end
@@ -46,16 +46,21 @@ class DashboardController < ApplicationController
       if error_messages.empty?
         format.html { redirect_to :root }
         format.js do 
-          if settings_params[:refresh_ratio].blank?
-            setup_panel_variables
-            render "refresh_panel"
-          else
-            render partial: "update_refresh_delay"
-          end
+          setup_panel_variables
+          render "refresh_panel"
         end
       else
         format.any {redirect_to :root, alert: error_messages.join("\n")}
       end
+    end
+  end
+  
+  def update_refresh_ratio
+    begin
+      session[:refresh_ratio] = Integer(settings_params[:refresh_ratio]) unless settings_params[:refresh_ratio].blank?
+      render partial: "update_refresh_delay"
+    rescue ArgumentError
+      redirect_to :root, alert: "Intervalo de atualização da página inválido"
     end
   end
   
@@ -70,7 +75,7 @@ class DashboardController < ApplicationController
   def settings_params
     params.require(:setting).permit(:max_log_age, 
                                     :refresh_ratio, 
-                                    :warning_delay, 
+                                    :default_warning_delay, 
                                     :n_pings, 
                                     :send_telegram_notifications, 
                                     :send_email_notifications, 

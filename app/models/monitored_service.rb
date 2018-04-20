@@ -10,6 +10,7 @@ class MonitoredService < ActiveRecord::Base
     
     after_initialize do
         self.force_create ||= false
+        self.warning_delay ||= Setting.default_warning_delay
     end
     
     after_create do
@@ -27,6 +28,7 @@ class MonitoredService < ActiveRecord::Base
     validates :port, presence: true, numericality: {only_integer: true, less_than_or_equal_to: 65535, greater_than: 0, message: "Porta de rede inválida"}, unless: :icmp?
     validates :port, absence: {message: "Não é utilizada porta de rede em monitoramentos icmp"}, if: :icmp?
     validates :port, uniqueness: {scope: :device_id, message: "Esta porta deste dispositivo já está sendo monitorada"}
+    validates :warning_delay, presence: true, numericality: {greater_than: 0, message: "Limiar de atraso inválido"}
     validate :test_single_ping, unless: Proc.new {|record| record.force_create == true or record.force_create == "true"}
     
     def test_single_ping
@@ -59,38 +61,6 @@ class MonitoredService < ActiveRecord::Base
     
     def url
         "#{self.service_type}://#{self.hostname}" + (self.service_type != "icmp" ? ":#{self.port}" : "")
-    end
-    
-    def logs_from_last_day
-        self.monitored_service_logs.where("created_at >= ?", 1.day.ago)
-    end
-    
-    def average_from_last_day
-        get_log_statistics logs_from_last_day
-    end
-    
-    def logs_from_last_week
-        self.monitored_service_logs.where("created_at >= ?", 1.week.ago)
-    end
-    
-    def average_from_last_week
-        get_log_statistics logs_from_last_week
-    end
-    
-    def logs_from_last_month
-        self.monitored_service_logs.where("created_at >= ?", 1.month.ago)
-    end
-    
-    def average_from_last_month
-        get_log_statistics logs_from_last_month
-    end
-    
-    def logs_from_last_year
-        self.monitored_service_logs.where("created_at >= ?", 1.year.ago)
-    end
-    
-    def average_from_last_year
-        get_log_statistics logs_from_last_year
     end
     
     def latest_log

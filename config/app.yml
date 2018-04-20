@@ -1,8 +1,8 @@
 # config/app.yml for rails-settings-cached
 defaults: &defaults
   max_log_age: 31557600 # 1 year
-  refresh_ratio: 30 # 30 seconds
-  warning_delay: 0.2 # 200 miliseconds
+  default_refresh_ratio: 30 # 30 seconds
+  default_warning_delay: 200 # 200 miliseconds
   n_pings: 10
   user_login: admin
   user_passwd: case123

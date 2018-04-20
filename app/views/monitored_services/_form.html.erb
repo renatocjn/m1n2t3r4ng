@@ -16,16 +16,17 @@ end
   <% end %>
   
   <div class="form-inputs">
-    <%= f.input :name, label: "Nome do serviço" %>
     <div class="row">
-      <div class="col-md">
-        <%= f.association :device, label: "Nome do dispositivo" %>
-        <%= f.input :service_type, label: "Tipo de serviço", as: :select, collection: MonitoredService.service_types.keys %>
-      </div>
-      <div class="col-md">
-        <%= f.input :force_create, label: "Pular verificação inicial?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %>
-        <%= f.input :port, label: "Porta de rede" %>
-      </div>
+      <div class="col-md"><%= f.input :name, label: "Nome do serviço" %></div>
+      <div class="col-md"> <%= f.input :force_create, label: "Pular verificação inicial?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %> </div>
+    </div>
+    <div class="row">
+      <div class="col-md"> <%= f.association :device, label: "Nome do dispositivo" %> </div>
+      <div class="col-md"> <%= f.input :warning_delay, wrapper: :vertical_input_with_append, append: "milissegundos", as: :integer, label: "Limiar de atraso elevado" %> </div>
+    </div>
+    <div class="row">
+      <div class="col-md"> <%= f.input :service_type, label: "Tipo de serviço", as: :select, collection: MonitoredService.service_types.keys %> </div>
+      <div class="col-md"> <%= f.input :port, label: "Porta de rede" %> </div>
     </div>
     <%= f.input :description, label: "Descrição longa" %>
   </div>

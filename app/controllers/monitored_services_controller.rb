@@ -1,7 +1,7 @@
 class MonitoredServicesController < ApplicationController
   include SetupPanelVariablesConcern
   
-  before_action :set_monitored_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_monitored_service, only: [:show, :edit, :update, :destroy, :history]
   before_filter :authorize
 
   # GET /monitored_services
@@ -84,7 +84,11 @@ class MonitoredServicesController < ApplicationController
   
   # GET /monitored_services/1/history
   def history
-
+    start_date = params[:start_date].blank? ? @monitored_service.monitored_service_logs.minimum(:created_at) : Time.zone.parse(params[:start_date]).in_time_zone
+    end_date = params[:end_date].blank? ? @monitored_service.monitored_service_logs.maximum(:created_at) : Time.zone.parse(params[:end_date])
+    
+    @monitored_service_logs = @monitored_service.monitored_service_logs.where("created_at >= ?", start_date).where("created_at <= ?", end_date).order(:created_at)
+    render json: {teste: 1, teste2: 2}
   end
 
   private
@@ -95,6 +99,6 @@ class MonitoredServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitored_service_params
-      params.require(:monitored_service).permit(:name, :service_type, :host, :port, :description, :force_create, :device_id)
+      params.require(:monitored_service).permit(:name, :service_type, :warning_delay, :host, :port, :description, :force_create, :device_id)
     end
 end

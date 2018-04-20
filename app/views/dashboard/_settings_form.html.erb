@@ -1,5 +1,5 @@
 <%# FIXME not updating values after save %>
-<%= simple_form_for @settings, url: root_path do |f| %>
+<%= simple_form_for @settings, url: update_settings_path do |f| %>
     <%= f.error_notification %>
   
     <div class="form-inputs">
@@ -8,13 +8,13 @@
         <div class="col-lg"><%= f.input :stabilization_delay, label: "Atraso de estabilização", as: :select, collection: stabilization_delays, include_blank: false %></div>
         <div class="col-lg"><%= f.input :n_pings, label: "Número de pings por medição", as: :integer, input_html: {min: 1, max: 30} %></div>
       </div>
-      
+
       <div class="row">
         <div class="col-lg"><%= f.input :user_login, label: "Usuário de acesso" %></div>
         <div class="col-lg"><%= f.input :user_passwd, label: "Senha de acesso" %></div>
-        <div class="col-lg"><%= f.input :warning_delay, as: :integer, label: "Limiar de alta latência (ms)", input_html: {"value" => (Setting.warning_delay*1000.0), "min" => "50", "step" => "10"} %></div>
+        <div class="col-lg"><%= f.input :default_warning_delay, wrapper: :vertical_input_with_append, append: "milissegundos", as: :integer, label: "Limiar padrão de alta latência", input_html: {"min" => "50", "step" => "10"} %></div>
       </div>
-      
+
       <div class="row">
         <div class="col-lg"><%= f.input :notification_email, label: "Email para notificações" %></div>
         <div class="col-lg"><%= f.input :group_services, label: "Agrupar serviços?", as: :select, collection: {"Sim" => true, "Não" => false}, include_blank: false %></div>

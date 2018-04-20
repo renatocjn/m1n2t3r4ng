@@ -1,25 +1,11 @@
 
-clearTimeout(refreshTO);
-
-function refresh_services() {
-    var bttn_contents = $('#refresh_bttn').contents();
-    $.ajax({
-        url: '/refresh_panel.js',
-        beforeSend: function() {
-            $('#refresh_bttn').prop('disabled', true).text("Atualizado...");
-        },
-        success: function(response) {
-            eval(response);
-        },
-        complete: function() {
-            $('#refresh_bttn').prop('disabled', false).html(bttn_contents);
-        }
-    });
+if (document.timer) {
+    document.timer.cancel();
 }
 
-var refreshTO;
-function repeating_refresh() {
-    refresh_services();
-    refreshTO = setTimeout(repeating_refresh, <%=session[:refresh_rate] * 1000%>);
+var repeating_refresh = function() {
+    $('#refresh_form').submit();
+    document.timer = new document.Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);
 }
-refreshTO = setTimeout(repeating_refresh, <%=session[:refresh_rate] * 1000%>);
+
+document.timer = new document.Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);

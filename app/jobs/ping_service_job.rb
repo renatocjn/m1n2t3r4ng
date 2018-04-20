@@ -12,7 +12,7 @@ class PingServiceJob < ActiveJob::Base
     else
       avg_delay = delaysum.fdiv(nPings)
       service.monitored_service_logs.create!(delay: avg_delay, delivery_ratio: del_ratio)
-      if avg_delay >= Setting.warning_delay
+      if avg_delay >= service.warning_delay*0.001
         update_service_and_notify_if_state_changed_past_stabilization_delay :warning, service
       else
         update_service_and_notify_if_state_changed_past_stabilization_delay :up, service
