@@ -88,7 +88,6 @@ class MonitoredServicesController < ApplicationController
     end_date = params[:end_date].blank? ? @monitored_service.monitored_service_logs.maximum(:created_at) : Time.zone.parse(params[:end_date])
     
     @monitored_service_logs = @monitored_service.monitored_service_logs.where("created_at >= ?", start_date).where("created_at <= ?", end_date).order(:created_at)
-    render json: {teste: 1, teste2: 2}
   end
 
   private
