@@ -11,7 +11,7 @@
     <i class="fas fa-bell-slash"></i>
   </button>
   
-  <%= button_to "/refresh_panel.js", remote: true, form: {id: "refresh_form"}, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success ", method: :get do %>
+  <%= button_to "/refresh_panel.js", remote: true, form: {id: "refresh_form"}, data: {"disable-with" => "Atualizando..."}, id: "refresh_bttn", class: "btn btn-success", method: :get do %>
     <%= fa_icon "sync-alt" %>
     <span class="d-none d-md-inline">Atualizar</span>
   <% end %>

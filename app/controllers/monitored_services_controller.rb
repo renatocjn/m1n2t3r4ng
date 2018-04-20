@@ -1,7 +1,11 @@
 class MonitoredServicesController < ApplicationController
   include SetupPanelVariablesConcern
   
+<<<<<<< HEAD
   before_action :set_monitored_service, only: [:show, :edit, :update, :destroy, :history]
+=======
+  before_action :set_monitored_service, only: [:show, :edit, :update, :destroy]
+>>>>>>> e6b5005370ae9804f9200cf5d163b2183b37c906
   before_filter :authorize
 
   # GET /monitored_services
@@ -88,7 +92,6 @@ class MonitoredServicesController < ApplicationController
     end_date = params[:end_date].blank? ? @monitored_service.monitored_service_logs.maximum(:created_at) : Time.zone.parse(params[:end_date])
     
     @monitored_service_logs = @monitored_service.monitored_service_logs.where("created_at >= ?", start_date).where("created_at <= ?", end_date).order(:created_at)
-    render json: {teste: 1, teste2: 2}
   end
 
   private
