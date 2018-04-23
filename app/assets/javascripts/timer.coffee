@@ -41,22 +41,12 @@ $(document).on "hidden.bs.modal", () ->
     if document.timer
         document.timer.resume()
 
-$(document).on "ajax:before", "#force_ping_form", () ->
+$(document).on "ajax:before", "#force_ping_form, #refresh_form", () ->
     if document.timer
         document.timer.pause()
-        $("#refresh_bttn").prop("disabled",true);
+    console.log($(".service-actions .btn, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", true))
 
-$(document).on "ajax:complete", "#force_ping_form", () ->
+$(document).on "ajax:complete", "#force_ping_form, #refresh_form", () ->
     if document.timer
         document.timer.resume()
-        $("#refresh_bttn").prop("disabled",false);
-        
-$(document).on "ajax:before", "#refresh_form", () ->
-    if document.timer
-        document.timer.pause()
-        $("#force_ping_bttn").prop("disabled",true);
-
-$(document).on "ajax:complete", "#refresh_form", () ->
-    if document.timer
-        document.timer.restart()
-        $("#force_ping_bttn").prop("disabled",false);
+    console.log($(".service-actions .btn, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", false))
