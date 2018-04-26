@@ -1,0 +1,24 @@
+
+<div id="graph_dialog">
+  <form class="form-inline mb-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text">Data inicial</label>
+      </div>
+      <input type="date" id="graph_begin" class="form-control mr-3"></input>
+    </div>
+    
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text">Data final</label>
+      </div>
+      <input type="date" id="graph_end" class="form-control mr-3"></input>
+    </div>
+    
+    <input type="hidden" id="graph_service_id"></input>
+    
+    <button class="btn btn-success" id="render_graph" type="button">Atualizar</button>
+  </form>
+    
+  <div id="graph"></div>    
+</div>

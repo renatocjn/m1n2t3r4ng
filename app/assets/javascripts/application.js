@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require popper
 //= require_tree ../../../vendor/assets/javascripts/bootstrap
+//= require font-awesome
+//= require plotly.min
 //= require_tree .

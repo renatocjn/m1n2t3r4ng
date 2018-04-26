@@ -23,12 +23,6 @@ class DashboardController < ApplicationController
     end
     
     begin
-      session[:refresh_rate] = Integer(settings_params[:refresh_ratio]) unless settings_params[:refresh_ratio].blank?
-    rescue ArgumentError
-      error_messages << "Intervalo de atualização da página inválido"
-    end
-    
-    begin
       Setting.default_warning_delay = Float(settings_params[:default_warning_delay]) unless settings_params[:default_warning_delay].blank?
     rescue ArgumentError
       error_messages << "Valor inválido para o limiar de alta latência"

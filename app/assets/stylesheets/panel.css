@@ -1,8 +1,7 @@
 
 .service-panel-widget {
-    height: 6.3rem;
-    width: 13rem;
-    /*padding: 1rem 15.5rem;*/
+    height: 6.8rem;
+    width: 12rem;
     margin: 0.1rem;
     border: 2px white solid;
     border-radius: .35rem;
@@ -24,31 +23,17 @@
     margin-bottom: 0.1rem;
 }
 
-/*.service-panel-widget .col {*/
-    /*padding: 0;*/
-/*}*/
-
 .service-actions {
-    padding-right: .5rem;
+    padding: 0 .4rem;
 }
 
-.service-info {
-    padding-right: 0;
-    padding-left: .5rem;
-}
-
-.service-panel-widget .btn,
-.service-panel-widget form {
+.service-panel-widget .btn {
     width: 20px;
     height: 20px;
     font-size: 9pt;
     padding: 0;
-    margin-bottom: 0.1rem;
+    margin-left: 0.1rem;
 }
-
-/*.service-panel-widget .col .btn:first-of-type {*/
-/*    margin-bottom: .75rem;*/
-/*}*/
 
 .service-panel-widget hr {
     margin: .1rem 0;

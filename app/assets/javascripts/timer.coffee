@@ -1,53 +1,43 @@
 #Based on https://stackoverflow.com/questions/3969475/javascript-pause-settimeout
 
-document.timer = null;
-
-document.Timer = (callback, delay) ->
-    this.delay = delay
+class @Timer
+    constructor: (@callback, @delay) ->
+        @restart()
     
-    this.pause = () ->
-        if !this.canceled and !this.paused
-            window.clearTimeout(this.timerId)
-            newdate = new Date()
-            this.remaining -= newdate - this.start
-            this.paused = true
+    pause: ->
+        if !@canceled and !@paused
+            clearTimeout(@timerId)
+            @remaining -= new Date() - @start
+            @paused = yes
 
-    this.resume = () ->
-        if !this.canceled and this.paused
-            this.start = new Date()
-            window.clearTimeout(this.timerId)
-            this.timerId = window.setTimeout(callback, this.remaining)
-            this.paused = false
+    resume: ->
+        if !@canceled and @paused
+            @start = new Date()
+            clearTimeout(@timerId)
+            @timerId = setTimeout(@callback, @remaining)
+            @paused = no
     
-    this.cancel = () ->
-        if !this.canceled
-            if !this.paused
-                window.clearTimeout(this.timerId)
-            this.canceled = true
+    cancel: ->
+        unless @canceled
+            clearTimeout(@timerId) unless @paused
+            @canceled = yes
 
-    this.restart = () ->
-        this.remaining = this.delay
-        this.canceled = false
-        this.paused = true
-        this.resume()
+    restart: ->
+        @remaining = @delay
+        @canceled = no
+        @paused = yes
+        @resume()
+
+$(document).on "shown.bs.modal", ->
+    @timer.pause() if @timer?
     
-    this.restart()
+$(document).on "hidden.bs.modal", ->
+    @timer.resume() if @timer?
 
-$(document).on "shown.bs.modal", () ->
-    if document.timer
-        document.timer.pause()
-    
-$(document).on "hidden.bs.modal", () ->
-    if document.timer
-        document.timer.resume()
-
-$(document).on "ajax:before", "#force_ping_form, #refresh_form", () ->
-    if document.timer
-        document.timer.pause()
+$(document).on "ajax:before", "#force_ping_form, #refresh_form", ->
+    @timer.pause() if @timer?
     $(".service-actions .btn, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", true)
 
-$(document).on "ajax:complete", "#force_ping_form, #refresh_form", () ->
-    if document.timer
-        document.timer.resume()
-    $(".service-actions .btn, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", false)
-
+$(document).on "ajax:complete", "#force_ping_form, #refresh_form", ->
+    @timer.resume() if @timer?
+    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", false)

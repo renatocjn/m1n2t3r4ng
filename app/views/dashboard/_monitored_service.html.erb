@@ -9,8 +9,8 @@
   end
 %>
 
-<div class="service-panel-widget row <%=service_class%>">
-  <div class="col d-flex flex-column justify-content-center service-info text-nowrap">
+<div class="service-panel-widget <%=service_class%>">
+  <div class="d-flex flex-column justify-content-center text-nowrap px-2">
     <span class="service-name">
       <% unless Setting.group_services %>
         <%=service.device %> <br>
@@ -20,15 +20,17 @@
     <hr>
     <%=metrics_string(service)%> 
   </div>
-  <div class="service-actions col-auto d-flex flex-column justify-content-center">
-    <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
-      <%= fa_icon("minus-circle") %>
-    <% end %>
-    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
-    <%= button_to force_ping_monitored_service_path(service), method: :get, class: "single_ping_bttn btn btn-secondary btn-sm", title: "Realizar medição deste dispositivo", remote: true do  %>
+  
+  <div class="service-actions d-flex justify-content-around my-1">
+    <a class="btn btn-info btn-sm text-white" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></a>
+    <a class="render_service_graph btn btn-info btn-sm text-white" data-service="<%=service.id%>" data-toggle="modal" data-target="#graphsModal"><%=fa_icon "chart-line"%></a>
+    <%= button_to force_ping_monitored_service_path(service), method: :get, form: {class: "d-inline-flex"}, class: "single_ping_bttn btn btn-secondary btn-sm", title: "Realizar medição deste dispositivo", remote: true do  %>
       <%= fa_icon('play') %>
     <% end %>
-    <a class="btn btn-info btn-sm text-white" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></a>
+    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editServiceModal<%=service.id%>"><%= fa_icon("pencil-alt") %></button>
+    <%= button_to service, method: :delete, class: "btn btn-danger btn-sm", form: {class: "d-inline-flex"}, data: {confirm: "Voce tem certeza que deseja parar de monitorar #{service.url}?"} do %>
+      <%= fa_icon("minus-circle") %>
+    <% end %>
   </div>
 </div>
 

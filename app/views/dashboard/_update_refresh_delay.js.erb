@@ -5,7 +5,7 @@ if (document.timer) {
 
 var repeating_refresh = function() {
     $('#refresh_form').submit();
-    document.timer = new document.Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);
+    document.timer = new Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);
 }
 
-document.timer = new document.Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);
+document.timer = new Timer(repeating_refresh, <%=session[:refresh_ratio] * 1000%>);

@@ -5,4 +5,5 @@ $(document).on "turbolinks:load ready", () ->
     
     $('#notification-modal').modal('show')
     
-    
+$(document).on "ajax:success", "#update_settings_form", ->
+    $("#settingsModal").modal('hide')

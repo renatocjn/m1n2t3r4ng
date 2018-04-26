@@ -1,5 +1,5 @@
 <%# FIXME not updating values after save %>
-<%= simple_form_for @settings, url: update_settings_path do |f| %>
+<%= simple_form_for @settings, url: update_settings_path, remote: true, html: {id: "update_settings_form"} do |f| %>
     <%= f.error_notification %>
   
     <div class="form-inputs">
@@ -41,7 +41,7 @@
     
     <div class="row">
       <div class="form-actions offset-lg-2 col-lg-8">
-        <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+        <%= f.submit "Salvar", class: "btn btn-primary btn-block", data: {"disable-with" => "Enviando..."} %>
       </div>
     </div>
 <% end %>

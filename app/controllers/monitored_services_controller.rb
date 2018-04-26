@@ -84,7 +84,7 @@ class MonitoredServicesController < ApplicationController
   
   # GET /monitored_services/1/history
   def history
-    start_date = params[:start_date].blank? ? @monitored_service.monitored_service_logs.minimum(:created_at) : Time.zone.parse(params[:start_date]).in_time_zone
+    start_date = params[:start_date].blank? ? 3.months.ago : Time.zone.parse(params[:start_date]).in_time_zone
     end_date = params[:end_date].blank? ? @monitored_service.monitored_service_logs.maximum(:created_at) : Time.zone.parse(params[:end_date])
     
     @monitored_service_logs = @monitored_service.monitored_service_logs.where("created_at >= ?", start_date).where("created_at <= ?", end_date).order(:created_at)
