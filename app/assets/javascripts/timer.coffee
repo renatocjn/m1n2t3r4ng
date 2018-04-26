@@ -5,13 +5,13 @@ class @Timer
         @restart()
     
     pause: ->
-        if !@canceled and !@paused
+        if not @canceled and not @paused
             clearTimeout(@timerId)
             @remaining -= new Date() - @start
             @paused = yes
 
     resume: ->
-        if !@canceled and @paused
+        if not @canceled and @paused
             @start = new Date()
             clearTimeout(@timerId)
             @timerId = setTimeout(@callback, @remaining)
@@ -28,16 +28,14 @@ class @Timer
         @paused = yes
         @resume()
 
-$(document).on "shown.bs.modal", ->
+$(document).on "shown.bs.modal ajax:before", ->
     @timer.pause() if @timer?
     
-$(document).on "hidden.bs.modal", ->
+$(document).on "hidden.bs.modal ajax:complete", ->
     @timer.resume() if @timer?
 
 $(document).on "ajax:before", "#force_ping_form, #refresh_form", ->
-    @timer.pause() if @timer?
-    $(".service-actions .btn, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", true)
+    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn a")).prop("disabled", true)
 
 $(document).on "ajax:complete", "#force_ping_form, #refresh_form", ->
-    @timer.resume() if @timer?
-    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn")).prop("disabled", false)
+    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn a")).prop("disabled", false)
