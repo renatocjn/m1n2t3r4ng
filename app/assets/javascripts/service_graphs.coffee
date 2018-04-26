@@ -10,6 +10,8 @@ $(document).on "click", "#render_graph", ->
     data:
       start_date: $("#graph_begin").val()
       end_date: $("#graph_end").val()
+    beforeSend: ->
+      $("#render_graph").attr("disable", true)
     error: (jqXHR, textStatus, errorThrown) ->
       if errorThrown == "Not Found"
         alert "Serviço inválido"
@@ -46,12 +48,13 @@ $(document).on "click", "#render_graph", ->
         margin:
           t: 30
           b: 30
-          pad: 30
-      Plotly.newPlot("graph", data, layout)
+      Plotly.newPlot("graph", data, layout).then ->
+        $("#render_graph").attr("disable", false)
 
 window.onresize = () ->
     Plotly.Plots.resize("graph");
 
 $(document).on "hidden.bs.modal", "#graphsModal", ->
   $("#graph_begin, #graph_end").val("")
+  $("#render_graph").attr("disable", false)
   $("#graph").empty()
