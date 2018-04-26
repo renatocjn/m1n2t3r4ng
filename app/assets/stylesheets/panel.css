@@ -1,4 +1,11 @@
 
+#loading_graph_img {
+    display: block;
+    margin: 0 auto;
+    min-width: 190px;
+    width: 25%;
+}
+
 .service-panel-widget {
     height: 6.8rem;
     width: 12rem;

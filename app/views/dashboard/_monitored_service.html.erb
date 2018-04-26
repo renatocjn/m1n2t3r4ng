@@ -23,7 +23,7 @@
   
   <div class="service-actions d-flex justify-content-around my-1">
     <a class="btn btn-info btn-sm text-white" data-content="<%=service_info_str service%>" data-toggle="popover" data-html="true"><%=fa_icon :info%></a>
-    <a class="render_service_graph btn btn-info btn-sm text-white" data-service="<%=service.id%>" data-toggle="modal" data-target="#graphsModal"><%=fa_icon "chart-line"%></a>
+    <a class="render_service_graph d-lg-inline d-md-none btn btn-info btn-sm text-white" data-service="<%=service.id%>" data-toggle="modal" data-target="#graphsModal"><%=fa_icon "chart-line"%></a>
     <%= button_to force_ping_monitored_service_path(service), method: :get, form: {class: "d-inline-flex"}, class: "single_ping_bttn btn btn-secondary btn-sm", title: "Realizar medição deste dispositivo", remote: true do  %>
       <%= fa_icon('play') %>
     <% end %>
