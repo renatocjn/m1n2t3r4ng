@@ -35,7 +35,7 @@ $(document).on "hidden.bs.modal ajax:complete", ->
     @timer.resume() if @timer?
 
 $(document).on "ajax:before", "#force_ping_form, #refresh_form", ->
-    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn a")).prop("disabled", true)
+    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn, a")).prop("disabled", true)
 
 $(document).on "ajax:complete", "#force_ping_form, #refresh_form", ->
-    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn a")).prop("disabled", false)
+    $(".service-actions .btn, .service-actions a, #force_ping_bttn, #refresh_bttn").not($(this).find(".btn, a")).prop("disabled", false)

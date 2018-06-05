@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Crono::Web, at: "/crono"
+
   get 'teste/teste'
 
   root "dashboard#services_panel"

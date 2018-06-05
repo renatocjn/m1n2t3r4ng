@@ -22,8 +22,8 @@ test:
 
 production:
   adapter: mysql2
-  username: <%= ENV["MYSQL_USER"]  %>
-  password: <%= ENV["MYSQL_PASSWD"] %>
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWD'] %>
   encoding: utf8
   database: mst
   host: localhost

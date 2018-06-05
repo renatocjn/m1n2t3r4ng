@@ -87,3 +87,9 @@ gem "delayed_job_active_record", "~> 4.1"
 
 # Added at 2018-04-13 08:48:38 -0300 by user:
 gem "seed_dump", "~> 3.2"
+
+# Added at 2018-06-05 13:38:37 -0300 by user:
+gem "haml", "~> 5.0"
+
+# Added at 2018-06-05 13:38:49 -0300 by user:
+gem "sinatra", "~> 1.4"
