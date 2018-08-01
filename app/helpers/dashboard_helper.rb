@@ -1,8 +1,7 @@
 module DashboardHelper
     def metrics_string service
-        latest_log = service.latest_log
-        if latest_log.present? and latest_log.delay.present?
-          "Atraso: #{number_with_precision (latest_log.delay*1000.0), strip_insignificant_zeros: true} ms"
+        if service.latest_delay.present? and service.latest_delivery_ratio.present?
+          "Atraso: #{number_with_precision (service.latest_delay*1000.0), strip_insignificant_zeros: true} ms"
           #<br>
           #Taxa de entrega: #{number_with_precision (latest_log.delivery_ratio*100.0), precision: 1, strip_insignificant_zeros: true} %"
         else
