@@ -19,6 +19,7 @@ if [ "$1" = "start" ] || [ "$1" = "restart" ] ; then
   echo $pid > tmp/pids/poller.pid
 
   echo "Starting delayed job worker..."
+  bundle exec rake jobs:clear
   bundle exec bin/delayed_job --pool=*:5 start
 fi
 
